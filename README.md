@@ -61,11 +61,20 @@ elmo-hikes/
 ---
 
 ## Contributors
+<<<<<<< HEAD
 
 - **Xi yao** - BCIT CST Student with a passion for user-friendly applications solving daily activity problems.
 - **bby13** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
 
 ---
+=======
+- **Valerie** - BCIT CST Student that likes to go out, meet new people, learn new things and used to practice multiple sports.
+- **Vish Epa** - BCIT CST Student with experience in game development and C#. Passionate to learn and improve as a programmer and general tech guy.
+- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
+
+---
+ 
+>>>>>>> main
 
 ## Acknowledgments
 
