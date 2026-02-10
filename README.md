@@ -66,6 +66,7 @@ elmo-hikes/
 
 
 ## Contributors
+- **Varshini** - BCIT CST Student with a passion for badminton and designing attractive websites. Fun fact: Loves playing board games.
 - **Valerie** - BCIT CST Student that likes to go out, meet new people, learn new things and used to practice multiple sports.
 - **Vish Epa** - BCIT CST Student with experience in game development and C#. Passionate to learn and improve as a programmer and general tech guy.
 - **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
