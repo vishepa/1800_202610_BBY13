@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Congestion Page</title>
+
+    <!-- Load Vite entry file -->
+    <script type="module" src="/src/main.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Web Components -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Reusable Navbar -->
+    <site-navbar></site-navbar>
+
+    <!-- Page Content -->
+    <main class="flex-fill container my-4">
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                <span class="material-icons">search</span>
+            </span>
+            <input type="text" class="form-control" placeholder="Search Cafes, Exits, ..." aria-label="Search cafes">
+        </div>
+    </main>
+
+    <!-- Reusable Footer -->
+    <site-footer></site-footer>
+
+</body>
+
+</html>
