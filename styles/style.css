@@ -17,9 +17,11 @@
 
 .explore-btn {
     margin-bottom: -2rem;
+}
 body {
   background-color: #c4e6ea;
 }
+
 
 body {
     background-color: #ffffff;
@@ -42,7 +44,6 @@ body {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .card-border {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
@@ -51,7 +52,6 @@ body {
 footer {
     background-color: #c4e6ea;
 }
-=======
 .food-spot .material-icons {
   font-size: 32px;
   text-shadow: 1px 1px 2px black;
@@ -71,4 +71,34 @@ footer {
 footer {
   background-color: #c4e6ea;
 }
->>>>>>> main
+
+.cafe-img-wrapper {
+  height: 150px;
+  overflow: hidden;
+}
+
+.cafe-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-spacing {
+  padding-left: 1rem;
+}
+
+.card-bg {
+  background-color: #FEFEFE;
+}
+
+.congestion-bg {
+  background-color: #E1E2F2;
+}
+
+.title-spacing {
+  padding-bottom: 1rem;
+}
+
+.heading-spacing {
+  padding-top: 2rem;
+}
