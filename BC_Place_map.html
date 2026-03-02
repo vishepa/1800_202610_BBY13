@@ -8,54 +8,13 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+     <!-- Web Components for shared navbar and footer layout -->
+      <script type="module" src="/src/components/site-navbar.js"></script>
+      <script type="module" src="/src/components/site-footer.js"></script>
+
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Find your way</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <p>&#9786;</p>
-            </li>
-            <li class="nav-item">
-              <button
-                type="button"
-                class="btn btn-info d-flex align-items-center"
-                onclick="window.location.href = './index.html'"
-              >
-                <span class="material-icons me-1">arrow_back</span>
-                Back to Home
-              </button>
-            </li>
-          </ul>
-
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <site-navbar></site-navbar>
     <div class="container text-center my-4">
       <div class="map-wrapper">
         <img

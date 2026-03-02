@@ -15,7 +15,7 @@ class SiteNavbar extends HTMLElement {
 
             <nav class="navbar navbar-expand-lg navbar-light bg-info">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Find your way</a>
+                    <a class="navbar-brand" href="./index.html">Find your way</a>
                 <button
                 class="navbar-toggler"
                 type="button"
