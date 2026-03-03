@@ -10,12 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const description = document.querySelector('#tims-collapse');
 
+    const updateSection = document.querySelector('#update-collapse');
+
     const confirmButton = document.querySelector('#confirm');
     const updateButton = document.querySelector('#update');
 
 
     const descriptionCollapse = new Collapse(description, {toggle: false});
-    const updateCollapse = new Collapse(document.querySelector('#update-collapse'), {toggle: false});
+    const updateCollapse = new Collapse(updateSection, {toggle: false});
 
     // items.forEach(item => {
     //     item.addEventListener('click', () => {
