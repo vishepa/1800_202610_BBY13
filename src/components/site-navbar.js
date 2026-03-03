@@ -27,7 +27,7 @@ class SiteNavbar extends HTMLElement {
                 >
                 <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse navbar-collapse-color" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                     <p>&#9786;</p>
