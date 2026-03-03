@@ -13,11 +13,11 @@ class SiteNavbar extends HTMLElement {
     renderNavbar() {
         this.innerHTML = `
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-info">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="./index.html">Find your way</a>
+            <nav class="navbar navbar-expand-lg navbar-light nav-bg">
+                <div class="container-fluid nav-height">
+                    <a class="navbar-brand navbar-text-color" href="./index.html">Find your way</a>
                 <button
-                class="navbar-toggler"
+                class="navbar-toggler toggle-color"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -27,7 +27,7 @@ class SiteNavbar extends HTMLElement {
                 >
                 <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse navbar-collapse-color" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                     <p>&#9786;</p>
