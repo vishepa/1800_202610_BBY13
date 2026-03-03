@@ -8,6 +8,7 @@
 
     <!-- Load Vite entry file -->
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/location-tiles.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -34,7 +35,7 @@
             <p class="text-muted">Here are the latest updates</p>
         </div>
 
-        <div class="tile-container">
+        <div class="tile-container d-flex flex-column gap-3">
             
             <div class="location-tiles mb-3 shadow-sm card-bg">
                 <div class="row g-0 align-items-center">
@@ -67,9 +68,26 @@
                     </div>
     
                 </div>
-                <div class="collapse m-1 w-100 align-items-center" id="tims-collapse">
-                    <div class="card card-body">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            </div>
+            <div class="collapse w-100 gap-1 align-items-center" id="tims-collapse">
+                <div class="card card-body w-100">
+                    <h4>Tim Hortons</h4>
+                    <h5> 150m away</h5>
+                    <h5> Crowd Level: Busy</h5>
+                    <h5> Expected Wait Time: 10–15 mins</h5>
+
+                    <button id="confirm" type="button" class="btn btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
+
+                    <button id="update" type="button" class="btn btn-primary w-25 gap-1 m-2">Update Wait Time</button>
+                    <div class="collapse w-50 gap-1 align-items-center" id="update-collapse">
+                        <div class="card card-body w-100">
+                            <div class="button-container">
+                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
+                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
+                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

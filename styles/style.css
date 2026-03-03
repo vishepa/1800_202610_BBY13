@@ -1,5 +1,5 @@
 .card {
-  width: 40vw !important;
+  /* width: 40vw !important; */
   --bs-card-spacer-y: 2rem;
   --bs-card-spacer-x: 3rem;
   --bs-card-bg: #c4e6ea;

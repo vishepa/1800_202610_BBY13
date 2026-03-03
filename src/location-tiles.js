@@ -4,27 +4,53 @@ import { Collapse } from "bootstrap";
 document.addEventListener('DOMContentLoaded', () => {
 
 
-    const container = document.querySelector('.tile-container');
+    const tile = document.querySelector('.location-tiles');
 
     const items = document.querySelectorAll('.location-tiles');
 
     const description = document.querySelector('#tims-collapse');
 
+    const confirmButton = document.querySelector('#confirm');
+    const updateButton = document.querySelector('#update');
+
+
     const descriptionCollapse = new Collapse(description, {toggle: false});
+    const updateCollapse = new Collapse(document.querySelector('#update-collapse'), {toggle: false});
 
-    items.forEach(item => {
-        item.addEventListener('click', () => {
+    // items.forEach(item => {
+    //     item.addEventListener('click', () => {
             
+    //         if (container.classList.contains('btn')) {
 
-            if (container.classList.contains('slide-left')) {
-                container.style.transform = 'translateX(0)';
-                container.classList.remove('slide-left');
-            } else {
-                container.style.transform = 'translateX(50px)';
-                container.classList.add('slide-left');
-            }
+    //             alert('Wait time confirmed! Thank you for your feedback.');
+    //             console.log('Wait time confirmed! Thank you for your feedback.');
+    //         }
 
-            descriptionCollapse.toggle();
-        });
+    //         descriptionCollapse.toggle();
+    //     });
+    // });
+
+
+    tile.addEventListener('click', () => {
+
+        descriptionCollapse.toggle();
+
     });
+
+
+
+    confirmButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alert('Wait time confirmed! Thank you for your feedback.');
+        console.log('Wait time confirmed! Thank you for your feedback.');
+    });
+
+     // "Update Wait Time" button
+    updateButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent the tile click from also firing
+        // TODO: fill out logic
+        updateCollapse.toggle();
+        console.log('Update wait time clicked!');
+    });
+
 });
