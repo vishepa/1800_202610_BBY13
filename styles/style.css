@@ -7,12 +7,12 @@
 }
 
 .btn-primary {
-  --bs-btn-bg: #732463;
-  --bs-btn-border-color: #732463;
-  --bs-btn-hover-bg: #732463;
-  --bs-btn-hover-border-color: #732463;
-  --bs-btn-active-bg: #732463;
-  --bs-btn-active-border-color: #732463;
+  --bs-btn-bg: #E6B952;
+  --bs-btn-border-color: #E6B952;
+  --bs-btn-hover-bg: #E6B952;
+  --bs-btn-hover-border-color: #E6B952;
+  --bs-btn-active-bg: #E6B952;
+  --bs-btn-active-border-color: #E6B952;
 }
 
 .explore-btn {
@@ -101,4 +101,36 @@ footer {
 
 .heading-spacing {
   padding-top: 2rem;
+}
+
+.card-bg {
+  background-color: #FEFEFE;
+}
+
+.body-bg {
+  background-color: #E1E2F2;
+}
+
+.footer-bg {
+  background-color: #040B54;
+}
+
+.icon-color {
+  color: #FEFEFE;
+}
+
+.nav-bg {
+  background-color: #040B54;
+}
+
+.navbar-text-color {
+  color: #FEFEFE;
+}
+
+.toggle-color {
+   background-color: #FEFEFE;
+}
+
+.nav-height {
+  height: 4rem;
 }
