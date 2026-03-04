@@ -7,7 +7,7 @@ class SiteFooter extends HTMLElement {
     constructor() {
         super();
         this.renderFooter();
-        this.renderAuthControls();
+        // this.renderAuthControls();
     }
 
     renderFooter() {

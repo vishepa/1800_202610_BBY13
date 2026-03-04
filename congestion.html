@@ -8,6 +8,7 @@
 
     <!-- Load Vite entry file -->
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/location-tiles.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -33,36 +34,56 @@
             <h4 class="fw-bold">Looks like you are near some of the Cafes!</h4>
             <p class="text-muted">Here are the latest updates</p>
         </div>
-        <div class="mb-3 shadow-sm card-bg">
-            <div class="row g-0 align-items-center">
 
                 <!-- Image Column -->
                 <div class="col-4">
                     <div class="cafe-img-wrapper rounded-start">
                         <img src="./images/delicious-burger-studio.jpg" alt="Tim Hortons">
                     </div>
+    
+                    <!-- Text Column -->
+                    <div class="col-8">
+                        <div class="card-body card-spacing">
+                            <h5 class="card-title title-spacing">Tim Hortons</h5>
+    
+                            <p class="mb-1">
+                                <strong>Distance:</strong> 150m away
+                            </p>
+    
+                            <p class="mb-1">
+                                <strong>Crowd Level:</strong>
+                                <span class="text-danger">Busy</span>
+                            </p>
+    
+                            <p class="mb-0">
+                                <strong>Expected Wait Time:</strong> 10–15 mins
+                            </p>
+                        </div>
+                    </div>
+    
                 </div>
+            </div>
+            <div class="collapse w-100 gap-1 align-items-center" id="tims-collapse">
+                <div class="card card-body w-100">
+                    <h4>Triple O's</h4>
+                    <h5> 150m away</h5>
+                    <h5> Crowd Level: Busy</h5>
+                    <h5> Expected Wait Time: 10–15 mins</h5>
 
-                <!-- Text Column -->
-                <div class="col-8">
-                    <div class="card-body card-spacing">
-                        <h5 class="card-title title-spacing">Triple O's</h5>
+                    <button id="confirm" type="button" class="btn btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
 
-                        <p class="mb-1">
-                            <strong>Distance:</strong> 150m away
-                        </p>
+                    <button id="update" type="button" class="btn btn-primary w-25 gap-1 m-2">Update Wait Time</button>
+                    <div class="collapse w-50 gap-1 align-items-center" id="update-collapse">
+                        <div class="card card-body w-100">
+                            <div class="button-container">
+                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
+                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
+                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
 
-                        <p class="mb-1">
-                            <strong>Crowd Level:</strong>
-                            <span class="text-danger">Busy</span>
-                        </p>
-
-                        <p class="mb-0">
-                            <strong>Expected Wait Time:</strong> 10–15 mins
-                        </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
