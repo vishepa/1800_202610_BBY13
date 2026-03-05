@@ -2,17 +2,17 @@
   /* width: 40vw !important; */
   --bs-card-spacer-y: 2rem;
   --bs-card-spacer-x: 3rem;
-  --bs-card-bg: #c4e6ea;
+  --bs-card-bg: #FFFFFF;
   /* margin: 0 auto; */
 }
 
 .btn-primary {
-  --bs-btn-bg: #E6B952;
-  --bs-btn-border-color: #E6B952;
-  --bs-btn-hover-bg: #E6B952;
-  --bs-btn-hover-border-color: #E6B952;
-  --bs-btn-active-bg: #E6B952;
-  --bs-btn-active-border-color: #E6B952;
+  --bs-btn-bg: #040B54;
+  --bs-btn-border-color: #040B54;
+  --bs-btn-hover-bg: #040B54;
+  --bs-btn-hover-border-color: #040B54;
+  --bs-btn-active-bg: #040B54;
+  --bs-btn-active-border-color: #040B54;
 }
 
 .explore-btn {
@@ -49,9 +49,7 @@ body {
 }
 
 
-footer {
-    background-color: #c4e6ea;
-}
+
 .food-spot .material-icons {
   font-size: 32px;
   text-shadow: 1px 1px 2px black;

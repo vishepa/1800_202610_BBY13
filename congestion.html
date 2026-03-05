@@ -34,17 +34,17 @@
             <h4 class="fw-bold">Looks like you are near some of the Cafes!</h4>
             <p class="text-muted">Here are the latest updates</p>
         </div>
-
+            <div class="location-tiles w-100 card-bg d-flex flex-column gap-3 p-3 rounded">
                 <!-- Image Column -->
-                <div class="col-4">
-                    <div class="cafe-img-wrapper rounded-start">
+                <div class="d-flex flex-row gap-3 align-items-center">
+                    <div class="cafe-img-wrapper rounded-start w-25">
                         <img src="./images/delicious-burger-studio.jpg" alt="Tim Hortons">
                     </div>
     
                     <!-- Text Column -->
                     <div class="col-8">
                         <div class="card-body card-spacing">
-                            <h5 class="card-title title-spacing">Tim Hortons</h5>
+                            <h5 class="card-title title-spacing">Triple O's</h5>
     
                             <p class="mb-1">
                                 <strong>Distance:</strong> 150m away
@@ -62,30 +62,31 @@
                     </div>
     
                 </div>
-            </div>
-            <div class="collapse w-100 gap-1 align-items-center" id="tims-collapse">
-                <div class="card card-body w-100">
-                    <h4>Triple O's</h4>
-                    <h5> 150m away</h5>
-                    <h5> Crowd Level: Busy</h5>
-                    <h5> Expected Wait Time: 10–15 mins</h5>
-
-                    <button id="confirm" type="button" class="btn btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
-
-                    <button id="update" type="button" class="btn btn-primary w-25 gap-1 m-2">Update Wait Time</button>
-                    <div class="collapse w-50 gap-1 align-items-center" id="update-collapse">
-                        <div class="card card-body w-100">
-                            <div class="button-container">
-                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
-                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
-                                <button type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
-
+                <div class="collapse w-100 gap-1 align-items-center" id="tripleO-collapse">
+                    <div class="card card-body w-100">
+                        <h4>Triple O's</h4>
+                        <h5> 150m away</h5>
+                        <h5> Crowd Level: Busy</h5>
+                        <h5> Expected Wait Time: 10–15 mins</h5>
+    
+                        <button id="confirm" type="button" class="btn btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
+    
+                        <button id="update" type="button" class="btn btn-primary w-25 gap-1 m-2">Update Wait Time</button>
+                        <div class="collapse w-50 gap-1 align-items-center" id="update-collapse">
+                            <div class="card card-body w-100">
+                                <div class="button-container">
+                                    <button type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
+                                    <button type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
+                                    <button type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
+    
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            
+        
     </main>
 
     <!-- Reusable Footer -->

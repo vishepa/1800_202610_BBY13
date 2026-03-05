@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const items = document.querySelectorAll('.location-tiles');
 
-    const description = document.querySelector('#tims-collapse');
+    const description = document.querySelector('#tripleO-collapse');
 
     const updateSection = document.querySelector('#update-collapse');
 
