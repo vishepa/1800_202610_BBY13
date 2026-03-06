@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Other libraries go here -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!--     for login and profile  -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles\acc-style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Find your way</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <p>&#9786;</p>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+      <div class="col-lg-6 px-0">
+        <h1 class="display-4 fst-italic">Welcome to BC Place Nav</h1>
+        <p class="lead my-3">
+          Explore more to get the user's guide of the sporting statium, and
+          enjoy the live match show!
+        </p>
+        <p class="lead mb-0">
+          <a href="#" class="text-body-emphasis fw-bold"
+            >Continue searching...</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+    <!-- Stuff for body goes here -->
+    <div class="container d-flex flex-wrap justify-content-around my-3">
+      <div class="card" style="width: 10rem">
+        <img src="./images/hero-2.jpg" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Smart Stadium Navigation</h5>
+          <p class="card-text">
+            Find entrances, exits, food vendors, and facilities instantly with
+            an interactive, easy-to-use stadium map.
+          </p>
+          <a href="#" class="btn btn-primary">Explore the Map</a>
+        </div>
+      </div>
+    </div>
+    <footer
+      class="d-flex flex-wrap sticky-bottom justify-content-between align-items-center py-3 border-top"
+    >
+      <a
+        href="/"
+        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+      >
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap" />
+        </svg>
+      </a>
+      <div class="container d-flex justify-content-around">
+        <a href="./review.html">
+          <span class="material-icons">favorite</span>
+        </a>
+        <a href="./index.html">
+          <span class="material-icons">home</span>
+        </a>
+        <a href="#">
+          <span class="material-icons">map</span>
+        </a>
+      </div>
+    </footer>
+
+    <!-- 	login and profile -->
+
+    <div class="phone login">
+      <h2>Login</h2>
+
+      <div class="input-group">
+        <input type="email" placeholder="abcde@gmail.com" />
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="••••••••" />
+      </div>
+
+      <div class="no-account"><a href="">Haven't signed up?</a></div>
+
+      <button class="btn-login">Sign In</button>
+    </div>
+
+    <!-- PROFILE SCREEN -->
+    <div class="phone profile">
+      <form action="#" method="POST">
+        <div class="profile-header">
+          <div class="avatar"></div>
+        </div>
+
+        <div class="profile-item">
+          <label>Profile Name</label>
+          <input type="text" name="fullname" value="Lionel Messi" />
+        </div>
+
+        <div class="profile-item">
+          <label>Favourite Club</label>
+          <input type="text" name="club" value="Argentina" />
+        </div>
+
+        <div class="profile-item">
+          <label>Username</label>
+          <input type="email" name="username" value="lmessi@gmail.com" />
+        </div>
+
+        <div class="profile-item">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter new password"
+          />
+        </div>
+
+        <div class="profile-buttons">
+          <button type="submit" class="btn-edit">Save Changes</button>
+          <button type="button" class="btn-logout">Log out</button>
+        </div>
+      </form>
+      <div class="bottom-nav">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          fill="currentColor"
+          class="bi bi-house-door-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+          />
+        </svg>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          fill="currentColor"
+          class="bi bi-people-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"
+          />
+        </svg>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          fill="currentColor"
+          class="bi bi-person-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <!-- Link to scripts of your own -->
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
