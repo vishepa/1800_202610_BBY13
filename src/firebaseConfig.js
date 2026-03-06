@@ -1,9 +1,11 @@
 // Configuration values are loaded securely from Vite
 // environment variables
 
+
 // Import Firebase SDK modules
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Read Firebase Config from vite environment 
 // variables in the .env file.
@@ -19,4 +21,6 @@ const app = initializeApp(firebaseConfig);
 
 
 
+
 export const auth = getAuth(app);
+export const db = getFirestore(app);
