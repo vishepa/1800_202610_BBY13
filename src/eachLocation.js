@@ -1,41 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Congestion Page</title>
 
-    <!-- Load Vite entry file -->
-    <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/location-tiles.js"></script>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+import { doc, getFirestore } from "firebase/firestore";
 
-    <!-- Web Components -->
-    <script type="module" src="/src/components/site-navbar.js"></script>
-    <script type="module" src="/src/components/site-footer.js"></script>
-</head>
 
-<body class="d-flex flex-column min-vh-100 congestion-bg">
+const tile = document.querySelector('#tile-container');
 
-    <!-- Reusable Navbar -->
-    <site-navbar></site-navbar>
 
-    <!-- Page Content -->
-    <main class="flex-fill container my-4 ">
-        <div class="input-group mb-3">
-            <span class="input-group-text">
-                <span class="material-icons">search</span>
-            </span>
-            <input type="text" class="form-control" placeholder="Search Cafes, Exits, ..." aria-label="Search cafes">
-        </div>
-        <div class="text-center mb-4 heading-spacing">
-            <h4 class="fw-bold">Looks like you are near some of the Cafes!</h4>
-            <p class="text-muted">Here are the latest updates</p>
-        </div>
-            <div id="tile-container" class="location-tiles w-100 card-bg d-flex flex-column gap-3 p-3 rounded">
-                <!-- Image Column -->
+function createTile(name, waitTime, imageUrl) {
+
+    const newTile = document.createElement('div',);
+    newTile.classList.add('location-tiles', 'w-100', 'card-bg', 'd-flex', 'flex-column', 'gap-3', 'p-3', 'rounded');
+
+    newTile.innerHTML = `
+
+       <!-- Image Column -->
                 <div class="d-flex flex-row gap-3 align-items-center">
                     <div class="cafe-img-wrapper rounded-start w-25">
                         <img src="./images/delicious-burger-studio.jpg" alt="Tim Hortons">
@@ -85,14 +64,11 @@
                     </div>
                 </div>
             </div>
-            
-        
-    </main>
 
-    <!-- Reusable Footer -->
-    <site-footer></site-footer>
 
-    <script type="module" src="/src/eachLocation.js"></script>
-</body>
 
-</html>
+
+
+    `;
+
+}
