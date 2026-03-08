@@ -11,6 +11,8 @@ import { auth } from "/src/firebaseConfig.js";
 // import { db } from "/src/firebaseConfig.js";
 import { doc, setDoc } from "firebase/firestore";
 
+import { db } from "/src/firebaseConfig.js";
+
 // Import specific functions from the Firebase Auth SDK
 import {
   signInWithEmailAndPassword,
@@ -65,24 +67,26 @@ export async function signupUser(name, email, password) {
   try {
     // Create a Firestore document for the new user with default values
     await setDoc(doc(db, "users", user.uid), {
+      // name: name,
+      // email: email,
+      // country: "Canada", // Default value
+      // school: "BCIT"     // Default value
       name: name,
-      email: email,
-      country: "Canada", // Default value
-      school: "BCIT"     // Default value
+      stars: 0,
+      updates: []
     });
     console.log("Firestore user document created successfully!");
-} catch (error) {
-  // Information for debugging: show the error code  
-  // In a real app, you might want to show a user-friendly message instead of the raw error.
-  // console.error("Error creating user document in Firestore:", error);
-  // console output may not be seen if redirection to main.html happens
-  // Therefore, we can try "alert".  
-  alert(`Error creating user document:\n${error.code || ""}\n${error.message || error}`);
-}
+  } catch (error) {
+    // Information for debugging: show the error code  
+    // In a real app, you might want to show a user-friendly message instead of the raw error.
+    // console.error("Error creating user document in Firestore:", error);
+    // console output may not be seen if redirection to main.html happens
+    // Therefore, we can try "alert".  
+    alert(`Error creating user document:\n${error.code || ""}\n${error.message || error}`);
+  }
   // Return the user object for further use (e.g., redirecting or showing a welcome message)
   return user;
 }
-
 // -------------------------------------------------------------
 // logoutUser()
 // -------------------------------------------------------------
