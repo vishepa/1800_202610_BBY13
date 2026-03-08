@@ -1,69 +1,113 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <title>TheShortCut</title>
-    <meta name="comp1800 template" content="My 1800 App" />
-
-    <!-- Required meta tags -->
+    <title>Bc place map</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Other libraries go here -->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-
-    <!-- Web Components for shared navbar and footer layout -->
+    
+    <!-- Site navbar and footer components -->
     <script type="module" src="/src/components/site-navbar.js"></script>
     <script type="module" src="/src/components/site-footer.js"></script>
   </head>
-
-  <body class="body-bg">
-    
+  <body class="d-flex flex-column min-vh-100">
     <site-navbar></site-navbar>
 
-    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-      <div class="col-lg-6 px-0">
-        <h1 class="display-4 fst-italic">Welcome to TheShortCut</h1>
-        <p class="lead my-3">
-          Explore more to get the user's guide of the sporting statium, and
-          enjoy the live match show!
-        </p>
-        <p class="lead mb-0">
-          <a href="#" class="text-body-emphasis fw-bold"
-            >Continue searching...</a
-          >
-        </p>
-      </div>
-    </div>
 
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
-    <!-- Stuff for body goes here -->
-    <div class="container d-flex flex-wrap justify-content-around my-3">
-      <div class="card card-border w-50" >
-        <img src="./images/hero-2.jpg" class="card-img-top" alt="..." />
-        <div class="card-body card-bg">
-          <h5 class="card-title">Smart Stadium Navigation</h5>
-          <p class="card-text">
-            Find entrances, exits, food vendors, and facilities instantly with
-            an interactive, easy-to-use stadium map.
-          </p>
-          <a href="./BC_Place_map.html" class="btn btn-primary"
-            >Explore the Map</a
-          >
+    <div class="container text-center my-4 flex-grow-1">
+      <div class="map-wrapper">
+        <img
+          src="./images/BCIT_map.png"
+          class="img-fluid rounded shadow d-none d-md-block"
+          alt="BCIT Map"
+        />
+        <img
+          src="./images/vertical_BCIT.png"
+          class="img-fluid rounded shadow d-block d-md-none"
+          alt="BCIT Map"
+        />
+
+        <div class="food-spot" id="spot-1">
+          <span class="material-icons text-danger">push_pin</span>
+          <!-- <span class="badge bg-dark">The stand</span> -->
         </div>
+
+        <div class="food-spot" id="spot-2">
+          <span class="material-icons text-danger">push_pin</span>
+          <!-- <span class="badge bg-dark">The stand</span> -->
+        </div>
+
+        <div class="food-spot" id="spot-3">
+          <span class="material-icons text-danger">push_pin</span>
+          <!-- <span class="badge bg-dark">The stand</span> -->
+        </div>
+
+        <div class="food-spot" id="spot-4">
+          <span class="material-icons text-danger">push_pin</span>
+          <!-- <span class="badge bg-dark">Triple O's</span> -->
+        </div>
+
+        <div class="food-spot" id="spot-5">
+          <span class="icon material-icons text-danger">push_pin</span>
+          <!-- <span class="badge bg-dark">Triple O's</span> -->
+        </div>
+
+        <div class="food-spot" id="spot1">
+
+          <div class="info-card d-none p-2 shadow rounded border">
+            <p class="fw-bold mb-1">The Stand</p>
+            <p class="small mb-0">Yummm food but oh! 4 bucks for coffee?!</p>
+          </div>
+
+        </div>
+
+        <div class="food-spot" id="spot2">
+
+          <div class="info-card d-none p-2 shadow rounded border">
+            <p class="fw-bold mb-1">Tim Hortons</p>
+            <p class="small mb-0">Yummm timbits and OHH cheap coffeeeee</p>
+          </div>
+          
+        </div>
+
+        <div class="food-spot" id="spot3">
+
+          <div class="info-card d-none p-2 shadow rounded border">
+            <p class="fw-bold mb-1">Triple O's</p>
+            <p class="small mb-0">Ohhh burguers with a pickle in the wrap paper???</p>
+          </div>
+          
+        </div>
+
+        <div class="food-spot" id="spot4">
+
+          <div class="info-card d-none p-2 shadow rounded border">
+            <p class="fw-bold mb-1">Habitat Pub</p>
+            <p class="small mb-0">A pub... cool I think?? (I can't go in yet)</p>
+          </div>
+          
+        </div>
+
+        <div class="food-spot" id="spot5">
+
+          <div class="info-card d-none p-2 shadow rounded border">
+            <p class="fw-bold mb-1">Fuse Cafe</p>
+            <p class="small mb-0">Never heard of that place before</p>
+          </div>
+          
+        </div>
+
       </div>
     </div>
+    
+    
+
     <site-footer></site-footer>
 
-    <!---------------------------------------------->
-    <!-- Your own JavaScript functions go here    -->
-    <!---------------------------------------------->
-
-    <!-- Link to scripts of your own -->
     <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/BCIT_map.js"></script>
   </body>
 </html>
