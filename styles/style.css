@@ -124,11 +124,11 @@ footer {
   color: #FEFEFE;
 }
 
-.location-tiles {
+.tile-row {
   transition: transform 0.2s ease;
 }
 
-.location-tiles:hover {
+.tile-row:hover {
 
   transform: scale(1.1);
 }
