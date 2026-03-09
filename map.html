@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Bc place map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Site navbar and footer components -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body class="body-bg">
+
+    <site-navbar></site-navbar>
+
+    <main class="container-fluid mt-4 mb-4 map-body">
+        <h2 class="map-page-title">Map View Holder</h2>
+        <div id="map" style="width: 100%; height: 400px;"></div>
+
+        <div>
+            <div class="card"></div>
+            <div class="card-body">
+                <h5 class="card-title map-title">Need Suggestions?</h5>
+                <p class="card-text map-description">
+                    View updates near your location on the map.
+                    Tap on markers to see details or contribute your own update to help others nearby.
+                </p>
+            </div>
+        </div>
+    </main>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <site-footer></site-footer>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <!-- Link to scripts of your own -->
+    <script type="module" src="./src/map.js"></script>
+</body>
+
+</html>

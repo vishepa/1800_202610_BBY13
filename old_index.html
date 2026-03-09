@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>TheShortCut</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Other libraries go here -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Web Components for shared navbar and footer layout -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+  </head>
+
+  <body class="body-bg">
+    
+    <site-navbar></site-navbar>
+
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+      <div class="col-lg-6 px-0">
+        <h1 class="display-4 fst-italic">Welcome to TheShortCut</h1>
+        <p class="lead my-3">
+          Explore more to get the user's guide of the sporting statium, and
+          enjoy the live match show!
+        </p>
+        <p class="lead mb-0">
+          <a href="#" class="text-body-emphasis fw-bold"
+            >Continue searching...</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+    <!-- Stuff for body goes here -->
+    <div class="container d-flex flex-wrap justify-content-around my-3">
+      <div class="card card-border w-50" >
+        <img src="./images/hero-2.jpg" class="card-img-top" alt="..." />
+        <div class="card-body card-bg">
+          <h5 class="card-title">Smart Stadium Navigation</h5>
+          <p class="card-text">
+            Find entrances, exits, food vendors, and facilities instantly with
+            an interactive, easy-to-use stadium map.
+          </p>
+          <a href="./BC_Place_map.html" class="btn btn-primary"
+            >Explore the Map</a
+          >
+        </div>
+      </div>
+    </div>
+    <site-footer></site-footer>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <!-- Link to scripts of your own -->
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
