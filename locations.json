@@ -5,7 +5,8 @@
         "currentCongestion": "busy",
         "estimatedWaitTime": "15-20 mins",
         "latitude": 49.251341536117295,
-        "longitude": -123.00132452944773
+        "longitude": -123.00132452944773,
+        "image": "delicious-burger-studio.jpg"
     },
     {
         "id": "TIMS",
@@ -13,7 +14,8 @@
         "currentCongestion": "normal",
         "estimatedWaitTime": "5-10 mins",
         "latitude": 49.25049944625801, 
-        "longitude": -123.00156487469584
+        "longitude": -123.00156487469584,
+        "image": "cup-coffee-with-bun.jpg"
     },
      {
         "id": "STARBUCKS",
@@ -21,6 +23,8 @@
         "currentCongestion": "none",
         "estimatedWaitTime": "0-5 mins",
         "latitude": 49.251234248014825, 
-        "longitude": -123.00062239203007
+        "longitude": -123.00062239203007,
+        "image": "starbucks-logo.jpg"
+
     }
 ]

@@ -24,6 +24,14 @@ async function displayCardsDynamically() {
             newCard.querySelector('#card-current-congestion').textContent = location.currentCongestion;
             newCard.querySelector('#card-expected-wait-time').textContent = location.estimatedWaitTime;
 
+
+            const img = document.createElement('img');
+            img.src = `../images/${location.image}`;
+            img.alt = location.image;
+
+            const test = newCard.querySelector('#img-wrapper');
+            test.appendChild(img);
+
             // Append to DOM first
             const container = document.getElementById("locations-go-here");
             container.appendChild(newCard);
