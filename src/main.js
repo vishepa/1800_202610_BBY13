@@ -1,89 +1,100 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
-import { collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
-
+import { Collapse } from 'bootstrap';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig.js';
-import { doc, onSnapshot } from "firebase/firestore";
-
-// If you have custom global styles, import them as well:
 import '../styles/style.css';
-import '../src/location-tiles.js';
+import { onAuthReady } from './authentication.js';
 
-import {
-    onAuthReady,
-} from './authentication.js';
-import { add } from 'firebase/firestore/pipelines';
+async function displayCardsDynamically() {
+    let cardTemplate = document.getElementById("tile-template");
+    const locationCollectionRef = collection(db, "locations");
 
-function sayHello() {
+    try {
+        const querySnapshot = await getDocs(locationCollectionRef);
 
-}
+        querySnapshot.forEach(docSnap => {
+            const location = docSnap.data();
 
-function addLocationData() {
-    const locationRef = collection(db, 'locations');
+            // Clone the template
+            let newCard = cardTemplate.content.cloneNode(true);
 
-    addDoc(locationRef, {
-        code: "TIMS", name: "Tim Hortons", congestion: "Busy", wait_time: "10-15 mins", distance: "150m away", last_updated: serverTimestamp()
-    });
-    addDoc(locationRef, {
-        code: "STARBUCKS", name: "Starbucks", congestion: "Moderate", wait_time: "5-10 mins", distance: "200m away", last_updated: serverTimestamp()
-    });
-    addDoc(locationRef, {
-        code: "TRIPLEO", name: "Triple O's", congestion: "Light", wait_time: "0-5 mins", distance: "300m away", last_updated: serverTimestamp()
-    });
-}
+            // Populate card fields
+            newCard.querySelector('#card-title').textContent = location.name;
+            newCard.querySelector('#card-current-congestion').textContent = location.currentCongestion;
+            newCard.querySelector('#card-expected-wait-time').textContent = location.estimatedWaitTime;
 
-async function seedLocations() {
-    const locationRef = collection(db, 'locations');
+            // Append to DOM first
+            const container = document.getElementById("locations-go-here");
+            container.appendChild(newCard);
 
-    // retrieve all documents in the 'locations' collection
-    const querySnapshot = await getDocs(locationRef);
+            // lastElementChild is always the card we just appended
+            const thisRow = container.lastElementChild;
 
-    if (querySnapshot.empty) {
-        console.log('No location data found, seeding initial data...');
+            const collapseEl = thisRow.querySelector('.location-collapse');
+            const updateCollapseEl = thisRow.querySelector('.update-collapse');
+            const confirmBtn = thisRow.querySelector('.confirm');
+            const updateBtn = thisRow.querySelector('.update');
 
-        addLocationData();
-    } else {
-        console.log('Location data already exists, skipping seeding.');
+            // Lazily create Collapse instances only on first interaction
+            let detailCollapse = null;
+            let updateCollapse = null;
+
+            const getDetailCollapse = () => {
+                if (!detailCollapse) detailCollapse = new Collapse(collapseEl, { toggle: false });
+                return detailCollapse;
+            };
+
+            const getUpdateCollapse = () => {
+                if (!updateCollapse) updateCollapse = new Collapse(updateCollapseEl, { toggle: false });
+                return updateCollapse;
+            };
+
+            // Clicking the tile row toggles the detail panel
+            thisRow.addEventListener('click', () => {
+                getDetailCollapse().toggle();
+            });
+
+            // Stop clicks inside the detail panel from bubbling up to the tile
+            collapseEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            confirmBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                alert('Wait time confirmed! Thank you for your feedback.');
+            });
+
+            updateBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                getUpdateCollapse().toggle();
+            });
+        });
+
+    } catch (error) {
+        console.error("Error getting documents: ", error);
     }
 }
 
-seedLocations();
-
+displayCardsDynamically();
 
 function showName() {
-  const nameElement = document.getElementById("name-goes-here");
+    const nameElement = document.getElementById("name-goes-here");
 
-  // Wait for Firebase to determine the current authentication state.
-  // onAuthReady() runs the callback once Firebase finishes checking the signed-in user.
-  // The user's name is extracted from the Firebase Authentication object
-  // You can "go to console" to check out current users. 
+    onAuthReady((user) => {
+        if (!user) {
+            if (window.location.pathname.endsWith('main.html')) {
+                location.href = "index.html";
+                return;
+            }
+            return;
+        }
 
-  onAuthReady((user) => {
-    if (!user) {
-      if (window.location.pathname.endsWith('main.html')) {
-
-        // If no user is signed in → redirect back to login page.
-        location.href = "index.html";
-        return;
-      }
-      
-    }
-
-    // If a user is logged in:
-    // Use their display name if available, otherwise show their email.
-    if (!user) {
-
-      return;
-    }
-    const name = user.displayName || user.email;
-
-    console.log(name);
-    // Update the welcome message with their name/email.
-    if (nameElement) {
-      nameElement.textContent = `${name}!`;
-      
-    }
-  });
+        const name = user.displayName || user.email;
+        if (nameElement) {
+            nameElement.textContent = `${name}!`;
+        }
+    });
 }
+
 showName();
-// document.addEventListener('DOMContentLoaded', sayHello);
