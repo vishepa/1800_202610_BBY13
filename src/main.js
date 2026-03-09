@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import { Collapse } from 'bootstrap';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, serverTimestamp, updateDoc,doc } from 'firebase/firestore';
 import { db } from './firebaseConfig.js';
 import '../styles/style.css';
 import { onAuthReady } from './authentication.js';
@@ -9,6 +9,7 @@ import { onAuthReady } from './authentication.js';
 async function displayCardsDynamically() {
     let cardTemplate = document.getElementById("tile-template");
     const locationCollectionRef = collection(db, "locations");
+    
 
     try {
         const querySnapshot = await getDocs(locationCollectionRef);
@@ -48,6 +49,8 @@ async function displayCardsDynamically() {
             let detailCollapse = null;
             let updateCollapse = null;
 
+            const locationDocRef = doc(db, "locations", docSnap.id);
+
             const getDetailCollapse = () => {
                 if (!detailCollapse) detailCollapse = new Collapse(collapseEl, { toggle: false });
                 return detailCollapse;
@@ -70,7 +73,14 @@ async function displayCardsDynamically() {
 
             confirmBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                alert('Wait time confirmed! Thank you for your feedback.');
+                const confirmMsg = thisRow.querySelector('.confirm-msg');
+                if (confirmMsg) {
+                    confirmMsg.style.visibility = 'visible';
+                    updateDoc(locationDocRef, {
+                        lastUpdated: serverTimestamp()
+                    });
+                }
+                // alert('Wait time confirmed! Thank you for your feedback.');
             });
 
             updateBtn.addEventListener('click', (e) => {

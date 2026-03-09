@@ -3,28 +3,31 @@
         "id": "TRIPLEO",
         "name": "Triple O's",
         "currentCongestion": "busy",
-        "estimatedWaitTime": "15-20 mins",
+        "estimatedWaitTime": "15 mins",
         "latitude": 49.251341536117295,
         "longitude": -123.00132452944773,
-        "image": "delicious-burger-studio.jpg"
+        "image": "delicious-burger-studio.jpg",
+        "lastUpdated": null
     },
     {
         "id": "TIMS",
         "name": "Tim Hortons",
         "currentCongestion": "normal",
-        "estimatedWaitTime": "5-10 mins",
+        "estimatedWaitTime": "10 mins",
         "latitude": 49.25049944625801, 
         "longitude": -123.00156487469584,
-        "image": "cup-coffee-with-bun.jpg"
+        "image": "cup-coffee-with-bun.jpg",
+        "lastUpdated": null 
     },
      {
         "id": "STARBUCKS",
         "name": "Starbucks",
         "currentCongestion": "none",
-        "estimatedWaitTime": "0-5 mins",
+        "estimatedWaitTime": "5 mins",
         "latitude": 49.251234248014825, 
         "longitude": -123.00062239203007,
-        "image": "starbucks-logo.jpg"
+        "image": "starbucks-logo.jpg",
+        "lastUpdated": null
 
     }
 ]
