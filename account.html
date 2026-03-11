@@ -5,29 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Account page</title>
     <link rel="stylesheet" href="styles/account-styles.css" />
-    <!-- <link
+    <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap"
       rel="stylesheet"
-    /> -->
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
   </head>
   <body>
-    <!-- 	login and profile -->
-
-    <div class="phone login">
-      <h2>Login</h2>
-
-      <div class="input-group">
-        <input type="email" placeholder="abcde@gmail.com" />
-      </div>
-
-      <div class="input-group">
-        <input type="password" placeholder="••••••••" />
-      </div>
-
-      <div class="no-account"><a href="">Haven't signed up?</a></div>
-
-      <button class="btn-login">Sign In</button>
-    </div>
+    <!-- login paged code removed from here -->
 
     <!-- PROFILE SCREEN -->
     <div class="phone profile">
@@ -38,17 +29,22 @@
 
         <div class="profile-item">
           <label>Profile Name</label>
-          <input type="text" name="fullname" value="Lionel Messi" />
+          <input type="text" id="name" name="name" value="Lionel Messi" />
         </div>
 
         <div class="profile-item">
           <label>Favourite Club</label>
-          <input type="text" name="club" value="Argentina" />
+          <input type="text" id="club" name="club" value="Argentina" />
         </div>
 
         <div class="profile-item">
           <label>Username</label>
-          <input type="email" name="username" value="lmessi@gmail.com" />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="lmessi@gmail.com"
+          />
         </div>
 
         <div class="profile-item">
@@ -56,17 +52,22 @@
           <input
             type="password"
             name="password"
+            id="password"
             placeholder="Enter new password"
           />
         </div>
 
         <div class="profile-buttons">
-          <button type="submit" class="btn-edit">Save Changes</button>
-          <button type="button" class="btn-logout">Log out</button>
+          <button id="saveChangesBtn" type="submit" class="btn-edit">
+            Save Changes
+          </button>
+          <button id="logoutBtn" type="button" class="btn-logout">
+            Log out
+          </button>
         </div>
       </form>
       <div class="bottom-nav">
-        <svg
+        <!-- <svg
           xmlns="http://www.w3.org/2000/svg"
           width="30"
           height="30"
@@ -103,7 +104,17 @@
           <path
             d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
           />
-        </svg>
+        </svg> -->
+
+        <site-footer></site-footer>
+        <!---------------------------------------------->
+        <!-- Your own JavaScript scripts go here      -->
+        <!---------------------------------------------->
+        <script type="module" src="/src/account.js"></script>
+        <script type="module" src="/src/main.js"></script>
+        <script type="module" src="/src/firebaseConfig.js"></script>
+        <script type="module" src="/src/authentication.js"></script>
+        <script type="module" src="/src/loginSignup.js"></script>
       </div>
     </div>
   </body>
