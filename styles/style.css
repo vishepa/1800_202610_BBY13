@@ -121,7 +121,7 @@ footer {
   color: #fefefe;
 }
 
-.location-tiles {
+.tile-row {
   transition: transform 0.2s ease;
 }
 

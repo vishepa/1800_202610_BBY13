@@ -8,7 +8,6 @@
 
     <!-- Load Vite entry file -->
     <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/location-tiles.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -34,45 +33,50 @@
             <h4 class="fw-bold">Looks like you are near some of the Cafes!</h4>
             <p class="text-muted">Here are the latest updates</p>
         </div>
-            <div id="tile-container" class="location-tiles w-100 card-bg d-flex flex-column gap-3 p-3 rounded">
+        <div id="locations-go-here" class="location-tiles w-100 d-flex flex-column gap-3 p-3 rounded" >
+
+        </div>
+        <template id="tile-template">
+            <div class="tile-row card-bg d-flex flex-column gap-3 p-3 rounded">
+
                 <!-- Image Column -->
                 <div class="d-flex flex-row gap-3 align-items-center">
-                    <div class="cafe-img-wrapper rounded-start w-25">
-                        <img src="./images/delicious-burger-studio.jpg" alt="Tim Hortons">
+                    <div id="img-wrapper" class="cafe-img-wrapper rounded-start w-25">
+                        <!-- Image will be inserted here -->
                     </div>
     
                     <!-- Text Column -->
                     <div class="col-8">
                         <div class="card-body card-spacing">
-                            <h5 class="card-title title-spacing">Triple O's</h5>
+                            <h5 id="card-title" class="card-title title-spacing">Triple O's</h5>
     
-                            <p class="mb-1">
+                            <p id="card-distance" class="mb-1">
                                 <strong>Distance:</strong> 150m away
                             </p>
     
                             <p class="mb-1">
                                 <strong>Crowd Level:</strong>
-                                <span class="text-danger">Busy</span>
+                                <span id="card-current-congestion" class="text-danger">Busy</span>
                             </p>
     
                             <p class="mb-0">
-                                <strong>Expected Wait Time:</strong> 10–15 mins
+                                <strong>Expected Wait Time:</strong><span id="card-expected-wait-time">10–15 mins</span> 
                             </p>
                         </div>
                     </div>
     
                 </div>
-                <div class="collapse w-100 gap-1 align-items-center" id="tripleO-collapse">
+                <div class="collapse location-collapse w-100 gap-1 align-items-center">
                     <div class="card card-body w-100">
                         <h4>Triple O's</h4>
                         <h5> 150m away</h5>
                         <h5> Crowd Level: Busy</h5>
                         <h5> Expected Wait Time: 10–15 mins</h5>
     
-                        <button id="confirm" type="button" class="btn btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
+                        <button type="button" class="btn confirm btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
     
-                        <button id="update" type="button" class="btn btn-primary w-25 gap-1 m-2">Update Wait Time</button>
-                        <div class="collapse w-50 gap-1 align-items-center" id="update-collapse">
+                        <button type="button" class="btn update btn-primary w-25 gap-1 m-2">Update Wait Time</button>
+                        <div class="collapse update-collapse w-50 gap-1 align-items-center">
                             <div class="card card-body w-100">
                                 <div class="button-container">
                                     <button type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
@@ -84,7 +88,9 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+        </template>
             
         
     </main>
