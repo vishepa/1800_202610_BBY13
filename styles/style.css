@@ -97,6 +97,14 @@ footer {
   background-color: #e1e2f2;
 }
 
+.confirm-msg {
+  visibility: hidden;
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: visibility 0.5s ease;
+}
+
 .title-spacing {
   padding-bottom: 1rem;
 }
@@ -163,4 +171,44 @@ footer {
 
 footer {
   background-color: #c4e6ea;
+}
+
+
+/* Recents Toggle Styling */
+.recents-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-check {
+  margin: 0;
+}
+
+.form-check-input {
+  width: 2.5rem;
+  height: 1.5rem;
+  border: 2px solid #ddd;
+  background-color: #e9ecef;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-check-input:checked {
+  background-color: #040B54;
+  border-color: #040B54;
+  box-shadow: none;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(4, 11, 84, 0.25);
+  border-color: #040B54;
+}
+
+.form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
+  font-weight: 500;
+  color: #040B54;
+  white-space: nowrap;
 }
