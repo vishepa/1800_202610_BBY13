@@ -5,7 +5,7 @@ function checkZoom() {
     const infoCards = document.querySelectorAll('.info-card');
 
     // Using 1.1 or 1.2 is safer as some screens start slightly above 1.0
-    if (zoomLevel >= 1.1) { 
+    if (zoomLevel >= 1.2) { 
         infoCards.forEach(card => {
             card.classList.remove('d-none');
             // Adding your fade animation here too!

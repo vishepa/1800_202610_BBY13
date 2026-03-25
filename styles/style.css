@@ -2,17 +2,17 @@
   /* width: 40vw !important; */
   --bs-card-spacer-y: 2rem;
   --bs-card-spacer-x: 3rem;
-  --bs-card-bg: #FFFFFF;
+  --bs-card-bg: #ffffff;
   /* margin: 0 auto; */
 }
 
 .btn-primary {
-  --bs-btn-bg: #040B54;
-  --bs-btn-border-color: #040B54;
-  --bs-btn-hover-bg: #040B54;
-  --bs-btn-hover-border-color: #040B54;
-  --bs-btn-active-bg: #040B54;
-  --bs-btn-active-border-color: #040B54;
+  --bs-btn-bg: #040b54;
+  --bs-btn-border-color: #040b54;
+  --bs-btn-hover-bg: #040b54;
+  --bs-btn-hover-border-color: #040b54;
+  --bs-btn-active-bg: #040b54;
+  --bs-btn-active-border-color: #040b54;
 }
 
 .explore-btn {
@@ -22,7 +22,6 @@
 body {
   background-color: #c4e6ea;
 }
-
 
 body {
   background-color: #ffffff;
@@ -50,8 +49,6 @@ body {
 .card-border {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
-
 
 .food-spot .material-icons {
   font-size: 32px;
@@ -93,11 +90,11 @@ footer {
 }
 
 .card-bg {
-  background-color: #FEFEFE;
+  background-color: #fefefe;
 }
 
 .congestion-bg {
-  background-color: #E1E2F2;
+  background-color: #e1e2f2;
 }
 
 .confirm-msg {
@@ -117,45 +114,44 @@ footer {
 }
 
 .card-bg {
-  background-color: #FEFEFE;
+  background-color: #fefefe;
 }
 
 .body-bg {
-  background-color: #E1E2F2;
+  background-color: #e1e2f2;
 }
 
 .footer-bg {
-  background-color: #040B54;
+  background-color: #040b54;
 }
 
 .icon-color {
-  color: #FEFEFE;
+  color: #fefefe;
 }
 
 .tile-row {
   transition: transform 0.2s ease;
 }
 
-.tile-row:hover {
-
+.location-tiles:hover {
   transform: scale(1.1);
 }
 
 /* Nav-bar css */
 .navbar-brand {
-  color: #FEFEFE !important;
+  color: #fefefe !important;
 }
 
 .toggle-color {
-  background-color: #FEFEFE !important;
+  background-color: #fefefe !important;
 }
 
 .nav-bg {
-  background-color: #040B54;
+  background-color: #040b54;
 }
 
 .navbar-collapse-color {
-  background-color: #040B54;
+  background-color: #040b54;
 }
 
 /* map.html css */
@@ -172,6 +168,11 @@ footer {
 .map-body {
   height: 100vh;
 }
+
+footer {
+  background-color: #c4e6ea;
+}
+
 
 /* Recents Toggle Styling */
 .recents-toggle-wrapper {
