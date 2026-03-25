@@ -4,6 +4,10 @@ body {
 .map-wrapper {
   position: relative;
   display: inline-block;
+  border-style: ridge;
+  border-color: #040B54;
+  box-shadow: 5px 10px 15px #040B54;
+  border-width: 5px;
 }
 .food-spot {
   position: absolute;
