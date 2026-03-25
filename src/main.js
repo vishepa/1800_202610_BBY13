@@ -1,108 +1,112 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
-import { Collapse } from 'bootstrap';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from './firebaseConfig.js';
-import '../styles/style.css';
-import { onAuthReady } from './authentication.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
+import { Collapse } from "bootstrap";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebaseConfig.js";
+import "../styles/style.css";
+import { onAuthReady } from "./authentication.js";
 
 async function displayCardsDynamically() {
-    let cardTemplate = document.getElementById("tile-template");
-    const locationCollectionRef = collection(db, "locations");
+  let cardTemplate = document.getElementById("tile-template");
+  if (!cardTemplate) return; // stop if template doesn't exist
 
-    try {
-        const querySnapshot = await getDocs(locationCollectionRef);
+  const locationCollectionRef = collection(db, "locations");
 
-        querySnapshot.forEach(docSnap => {
-            const location = docSnap.data();
+  try {
+    const querySnapshot = await getDocs(locationCollectionRef);
 
-            // Clone the template
-            let newCard = cardTemplate.content.cloneNode(true);
+    querySnapshot.forEach((docSnap) => {
+      const location = docSnap.data();
 
-            // Populate card fields
-            newCard.querySelector('#card-title').textContent = location.name;
-            newCard.querySelector('#card-current-congestion').textContent = location.currentCongestion;
-            newCard.querySelector('#card-expected-wait-time').textContent = location.estimatedWaitTime;
+      // Clone the template
+      let newCard = cardTemplate.content.cloneNode(true);
 
+      // Populate card fields
+      newCard.querySelector("#card-title").textContent = location.name;
+      newCard.querySelector("#card-current-congestion").textContent =
+        location.currentCongestion;
+      newCard.querySelector("#card-expected-wait-time").textContent =
+        location.estimatedWaitTime;
 
-            const img = document.createElement('img');
-            img.src = `../images/${location.image}`;
-            img.alt = location.image;
+      const img = document.createElement("img");
+      img.src = `../images/${location.image}`;
+      img.alt = location.image;
 
-            const test = newCard.querySelector('#img-wrapper');
-            test.appendChild(img);
+      const test = newCard.querySelector("#img-wrapper");
+      test.appendChild(img);
 
-            // Append to DOM first
-            const container = document.getElementById("locations-go-here");
-            container.appendChild(newCard);
+      // Append to DOM first
+      const container = document.getElementById("locations-go-here");
+      container.appendChild(newCard);
 
-            // lastElementChild is always the card we just appended
-            const thisRow = container.lastElementChild;
+      // lastElementChild is always the card we just appended
+      const thisRow = container.lastElementChild;
 
-            const collapseEl = thisRow.querySelector('.location-collapse');
-            const updateCollapseEl = thisRow.querySelector('.update-collapse');
-            const confirmBtn = thisRow.querySelector('.confirm');
-            const updateBtn = thisRow.querySelector('.update');
+      const collapseEl = thisRow.querySelector(".location-collapse");
+      const updateCollapseEl = thisRow.querySelector(".update-collapse");
+      const confirmBtn = thisRow.querySelector(".confirm");
+      const updateBtn = thisRow.querySelector(".update");
 
-            // Lazily create Collapse instances only on first interaction
-            let detailCollapse = null;
-            let updateCollapse = null;
+      // Lazily create Collapse instances only on first interaction
+      let detailCollapse = null;
+      let updateCollapse = null;
 
-            const getDetailCollapse = () => {
-                if (!detailCollapse) detailCollapse = new Collapse(collapseEl, { toggle: false });
-                return detailCollapse;
-            };
+      const getDetailCollapse = () => {
+        if (!detailCollapse)
+          detailCollapse = new Collapse(collapseEl, { toggle: false });
+        return detailCollapse;
+      };
 
-            const getUpdateCollapse = () => {
-                if (!updateCollapse) updateCollapse = new Collapse(updateCollapseEl, { toggle: false });
-                return updateCollapse;
-            };
+      const getUpdateCollapse = () => {
+        if (!updateCollapse)
+          updateCollapse = new Collapse(updateCollapseEl, { toggle: false });
+        return updateCollapse;
+      };
 
-            // Clicking the tile row toggles the detail panel
-            thisRow.addEventListener('click', () => {
-                getDetailCollapse().toggle();
-            });
+      // Clicking the tile row toggles the detail panel
+      thisRow.addEventListener("click", () => {
+        getDetailCollapse().toggle();
+      });
 
-            // Stop clicks inside the detail panel from bubbling up to the tile
-            collapseEl.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
+      // Stop clicks inside the detail panel from bubbling up to the tile
+      collapseEl.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
 
-            confirmBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                alert('Wait time confirmed! Thank you for your feedback.');
-            });
+      confirmBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        alert("Wait time confirmed! Thank you for your feedback.");
+      });
 
-            updateBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                getUpdateCollapse().toggle();
-            });
-        });
-
-    } catch (error) {
-        console.error("Error getting documents: ", error);
-    }
+      updateBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        getUpdateCollapse().toggle();
+      });
+    });
+  } catch (error) {
+    console.error("Error getting documents: ", error);
+  }
 }
 
 displayCardsDynamically();
 
 function showName() {
-    const nameElement = document.getElementById("name-goes-here");
+  const nameElement = document.getElementById("name-goes-here");
 
-    onAuthReady((user) => {
-        if (!user) {
-            if (window.location.pathname.endsWith('main.html')) {
-                location.href = "index.html";
-                return;
-            }
-            return;
-        }
+  onAuthReady((user) => {
+    if (!user) {
+      if (window.location.pathname.endsWith("main.html")) {
+        location.href = "index.html";
+        return;
+      }
+      return;
+    }
 
-        const name = user.displayName || user.email;
-        if (nameElement) {
-            nameElement.textContent = `${name}!`;
-        }
-    });
+    const name = user.displayName || user.email;
+    if (nameElement) {
+      nameElement.textContent = `${name}!`;
+    }
+  });
 }
 
 showName();
