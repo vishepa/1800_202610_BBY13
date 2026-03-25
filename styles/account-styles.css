@@ -16,12 +16,12 @@ body {
   display: flex;
   justify-content: center;
   gap: 80px;
-  padding: 40px;
+  /* padding: 40px; */
 }
 
 /* PHONE FRAME */
 .phone {
-  width: 18%;
+  width: 100%;
   height: auto;
   /* background: #f9f6f2;
   border-radius: 12px;
@@ -33,7 +33,7 @@ body {
 
 /* ================= LOGIN SCREEN ================= */
 
-.login h2 {
+/* .login h2 {
   text-align: center;
   margin: 60px 0 40px;
   font-weight: 600;
@@ -41,9 +41,9 @@ body {
 
 .input-group {
   margin-bottom: 25px;
-}
+} */
 
-.input-group input {
+/* .input-group input {
   width: 100%;
   padding: 14px;
   border: none;
@@ -68,7 +68,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* ================= PROFILE SCREEN ================= */
 
