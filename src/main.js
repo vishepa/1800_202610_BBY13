@@ -7,6 +7,8 @@ import { auth } from './firebaseConfig.js';
 import '../styles/style.css';
 import { onAuthReady } from './authentication.js';
 
+export { collection, getDocs, getDoc, updateDoc};
+
 // Recent locations management
 const MAX_RECENTS = 10;
 let currentUser = null;
@@ -177,6 +179,10 @@ async function displayCardsDynamically() {
 
 // Toggle between All and Recents
 function setupRecentsToggle() {
+    if (!window.location.pathname.endsWith("congestion.html")) {
+
+        return;
+    }
     const recentsToggle = document.getElementById('recents-toggle');
     if (!recentsToggle) {
         console.error('Recents toggle element not found!');

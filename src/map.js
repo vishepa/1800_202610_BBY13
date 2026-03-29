@@ -4,6 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import '../styles/style.css';
 
+import { collection, getDocs, getDoc, updateDoc} from './main.js';
+import { db } from './firebaseConfig.js';
+import { auth } from './firebaseConfig.js';
+import { onAuthReady } from './authentication.js';
+import { query } from "firebase/firestore";
+
 // ------------------------------------------------------------
 // Global variable to store user location, hike data - good practice
 // ------------------------------------------------------------
@@ -40,7 +46,16 @@ function showMap() {
   map.once("load", async () => {
     // Choose either the built-in geolocate control or the manual pin method
     addGeolocationControl(map);
+
+    map.getStyle().layers.forEach((layer) => {
+      if (layer.type === 'symbol' && layer.layout?.['icon-image']) {
+        map.setLayoutProperty(layer.id, 'visibility', 'none');
+      }
+    });
     // await addUserPin(map);
+
+    // await location markers
+    await addLocationMarkers(map);
     console.log("map loaded, placed user pin!");
   });
 
@@ -48,7 +63,64 @@ function showMap() {
     // Zoom and rotation
     map.addControl(new maplibregl.NavigationControl(), "top-right");
   }
+
+  
+
+
+  async function addLocationMarkers(map) {
+
+    const locationCollectionRef = collection(db, "locations");
+
+    
+    
+    try {
+      
+      const querySnapshot = await getDocs(locationCollectionRef);
+
+      querySnapshot.forEach((docSnap) => {
+  
+          const location = docSnap.data();
+
+          const { latitude, longitude, name, currentCongestion, estimatedWaitTime } = location;
+          if (!latitude || !longitude) return;
+
+          const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
+            <strong>${name}</strong><br>
+            Congestion: ${currentCongestion}<br>
+            Wait: ${estimatedWaitTime}
+          `);
+
+          
+          new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
+            .setLngLat([longitude, latitude])
+            .setPopup(popup)
+            .addTo(map);
+  
+      });
+
+
+
+    } catch (error) {
+        console.error("Error fetching location data:", error);
+
+    }
+
+
+  }
+    
+
 }
+
+// Helper to pick color based on congestion
+function getCongestionColor(congestion) {
+  if (congestion === 'none') return '#22c55e';    // green
+  if (congestion === 'normal') return '#eab308';  // yellow
+  if (congestion === 'busy') return '#ef4444';    // red
+  return '#6b7280'; // grey fallback for unknown values
+}
+
+
+
 
 showMap();
 
