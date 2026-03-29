@@ -19,7 +19,7 @@
         "image": "cup-coffee-with-bun.jpg",
         "lastUpdated": null 
     },
-     {
+    {
         "id": "STARBUCKS",
         "name": "Starbucks",
         "currentCongestion": "none",
@@ -29,5 +29,25 @@
         "image": "starbucks-logo.jpg",
         "lastUpdated": null
 
-    }
+    },
+    {
+        "id": "THESTAND",
+        "name": "The Stand",
+        "currentCongestion": "busy",
+        "estimatedWaitTime": "15 mins",
+        "latitude": 49.2504055035962,
+        "longitude": -123.00169510790387,
+        "image": "BCIT_logo.png",
+        "lastUpdated": null
+     },
+     {
+        "id": "HABITAT",
+        "name": "The Habitat Pub",
+        "currentCongestion": "normal",
+        "estimatedWaitTime": "10 mins",
+        "latitude": 49.251540736250746,
+        "longitude": -123.00174789753335,
+        "image": "HabitatPub.jpg",
+        "lastUpdated": null
+     }
 ]
