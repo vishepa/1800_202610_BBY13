@@ -49,5 +49,15 @@
         "longitude": -123.00174789753335,
         "image": "HabitatPub.jpg",
         "lastUpdated": null
+     },
+     {
+        "id": "SE12BATHROOM",
+        "name": "SE12 Bathrooms",
+        "currentCongestion": "none",
+        "estimatedWaitTime": "5 mins",
+        "latitude": 49.25006245934984, 
+        "longitude": -123.00156347602658,
+        "image": "bathroom_image.png",
+        "lastUpdated": null
      }
 ]
