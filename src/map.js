@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import '../styles/style.css';
 
-import { collection, getDocs, getDoc, updateDoc} from './main.js';
+import { collection, getDocs, getDoc, updateDoc, doc, serverTimestamp} from './main.js';
 import { db } from './firebaseConfig.js';
 import { auth } from './firebaseConfig.js';
 import { onAuthReady } from './authentication.js';
@@ -84,11 +84,44 @@ function showMap() {
           const { latitude, longitude, name, currentCongestion, estimatedWaitTime } = location;
           if (!latitude || !longitude) return;
 
-          const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
-            <strong>${name}</strong><br>
-            Congestion: ${currentCongestion}<br>
-            Wait: ${estimatedWaitTime}
-          `);
+                    // Build the popup DOM element
+          const popupEl = document.createElement('div');
+          popupEl.style.minWidth = '220px';
+          popupEl.innerHTML = `
+            <h5>${name}</h5>
+            <p class="mb-1"><strong>Crowd Level:</strong> ${currentCongestion}</p>
+            <p class="mb-2"><strong>Wait:</strong> ${estimatedWaitTime}</p>
+            <button class="btn btn-primary btn-sm w-100 mb-1 confirm-btn">Confirm Wait Time</button>
+            <p class="confirm-msg mb-1" style="display:none">Thanks for confirming!</p>
+            <button class="btn btn-outline-secondary btn-sm w-100 update-btn">Update Wait Time</button>
+            <div class="update-options mt-1" style="display:none">
+              <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="5 mins">5 mins</button>
+              <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="10 mins">10 mins</button>
+              <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="15 mins">15 mins</button>
+            </div>
+          `;
+
+          // Attach the same logic as main.js
+          const locationDocRef = doc(db, 'locations', docSnap.id);
+
+          popupEl.querySelector('.confirm-btn').addEventListener('click', () => {
+            updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
+            popupEl.querySelector('.confirm-msg').style.display = 'block';
+          });
+
+          popupEl.querySelector('.update-btn').addEventListener('click', () => {
+            const opts = popupEl.querySelector('.update-options');
+            opts.style.display = opts.style.display === 'none' ? 'block' : 'none';
+          });
+
+          popupEl.querySelectorAll('.time-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time });
+            });
+          });
+
+          const popup = new maplibregl.Popup({ offset: 25 }).setDOMContent(popupEl);
+
 
           
           new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })

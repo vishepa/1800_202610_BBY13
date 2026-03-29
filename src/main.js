@@ -7,7 +7,7 @@ import { auth } from './firebaseConfig.js';
 import '../styles/style.css';
 import { onAuthReady } from './authentication.js';
 
-export { collection, getDocs, getDoc, updateDoc};
+export { collection, getDocs, getDoc, updateDoc, serverTimestamp, doc };
 
 // Recent locations management
 const MAX_RECENTS = 10;
@@ -101,6 +101,14 @@ async function displayCardsDynamically() {
         location.currentCongestion;
       newCard.querySelector("#card-expected-wait-time").textContent =
         location.estimatedWaitTime;
+
+        // Populate collapse card fiels
+          // Populate card fields
+      newCard.querySelector("#collapse-card-title").textContent = location.name;
+      newCard.querySelector("#collapse-card-congestion").textContent =
+        location.currentCongestion;
+      newCard.querySelector("#collapse-card-wait-time").textContent =
+        "Estimated Wait Time: " + location.estimatedWaitTime;
 
       const img = document.createElement("img");
       img.src = `../images/${location.image}`;
