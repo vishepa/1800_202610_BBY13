@@ -7,6 +7,8 @@ import { auth } from './firebaseConfig.js';
 import '../styles/style.css';
 import { onAuthReady } from './authentication.js';
 
+export { collection, getDocs, getDoc, updateDoc, serverTimestamp, doc };
+
 // Recent locations management
 const MAX_RECENTS = 10;
 let currentUser = null;
@@ -100,6 +102,14 @@ async function displayCardsDynamically() {
       newCard.querySelector("#card-expected-wait-time").textContent =
         location.estimatedWaitTime;
 
+        // Populate collapse card fiels
+          // Populate card fields
+      newCard.querySelector("#collapse-card-title").textContent = location.name;
+      newCard.querySelector("#collapse-card-congestion").textContent =
+        location.currentCongestion;
+      newCard.querySelector("#collapse-card-wait-time").textContent =
+        "Estimated Wait Time: " + location.estimatedWaitTime;
+
       const img = document.createElement("img");
       img.src = `../images/${location.image}`;
       img.alt = location.image;
@@ -177,6 +187,10 @@ async function displayCardsDynamically() {
 
 // Toggle between All and Recents
 function setupRecentsToggle() {
+    if (!window.location.pathname.endsWith("congestion.html")) {
+
+        return;
+    }
     const recentsToggle = document.getElementById('recents-toggle');
     if (!recentsToggle) {
         console.error('Recents toggle element not found!');
