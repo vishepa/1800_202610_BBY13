@@ -56,6 +56,11 @@ function showMap() {
 
     // await location markers
     await addLocationMarkers(map);
+
+    // signal when data is ready
+    await addLocationMarkers(map);
+    resolveReady(list_locations);
+
     // await addUserPin(map);
     console.log("map loaded, placed user pin!");
     console.log("Markers loaded into list_locations.places:", list_locations.places);
@@ -117,12 +122,17 @@ function showMap() {
             <p class="mb-1"><strong>Crowd Level:</strong> ${currentCongestion}</p>
             <p class="mb-2"><strong>Wait:</strong> ${estimatedWaitTime}</p>
             <button class="btn btn-primary btn-sm w-100 mb-1 confirm-btn">Confirm Wait Time</button>
-            <p class="confirm-msg mb-1" style="display:none">Thanks for confirming!</p>
+            <div class="confirm-msg mb-0" style="display:none">
+              <p>Thanks for confirming!</p>
+            </div>
             <button class="btn btn-outline-secondary btn-sm w-100 update-btn">Update Wait Time</button>
-            <div class="update-options mt-1" style="display:none">
+            <div class="update-options mt-1" style="display:none;">
               <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="5 mins">5 mins</button>
               <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="10 mins">10 mins</button>
               <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="15 mins">15 mins</button>
+            </div>
+            <div class="update-message mt-1" style="display:none">
+              <p class="update-msg mb-0">Wait time updated!</p>
             </div>
           `;
 
@@ -130,8 +140,9 @@ function showMap() {
           const locationDocRef = doc(db, 'locations', docSnap.id);
 
           popupEl.querySelector('.confirm-btn').addEventListener('click', () => {
+            const confirmMsg = popupEl.querySelector('.confirm-msg');
             updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
-            popupEl.querySelector('.confirm-msg').style.display = 'block';
+            confirmMsg.style.display = 'block';
           });
 
           popupEl.querySelector('.update-btn').addEventListener('click', () => {
@@ -139,10 +150,22 @@ function showMap() {
             opts.style.display = opts.style.display === 'none' ? 'block' : 'none';
           });
 
+          const congestionMap = {
+            '5 mins' : 'none',
+            '10 mins' : 'normal',
+            '15 mins' : 'busy'
+          }
+
           popupEl.querySelectorAll('.time-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-              updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time });
+
+              const newCongestion = congestionMap[btn.dataset.time];
+              const updateMsg = popupEl.querySelector('.update-message');
+
+              updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time, currentCongestion: newCongestion, lastUpdated: serverTimestamp() });
               popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
+              popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
+              updateMsg.style.display = 'block';
             });
           });
 
@@ -197,6 +220,8 @@ function addGeolocationControl(map) {
   ];
 
   geolocate.on("geolocate", (e) => {
+
+    list_locations.userLngLat = [e.coords.longitude, e.coords.latitude];
     const userLng = e.coords.longitude;
     const userLat = e.coords.latitude;
 
@@ -221,3 +246,7 @@ function addGeolocationControl(map) {
     // You can react to tracking start here if needed
   });
 }
+
+let resolveReady;
+export const mapReady = new Promise(resolve => { resolveReady = resolve; });
+

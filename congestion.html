@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Congestion Page</title>
-
+    <title>TheShortCut</title>
+ 
     <!-- Load Vite entry file -->
     <script type="module" src="/src/main.js"></script>
 
@@ -60,17 +60,20 @@
                         <div class="card-body card-spacing">
                             <h5 id="card-title" class="card-title title-spacing">Triple O's</h5>
     
-                            <p id="card-distance" class="mb-1">
-                                <strong>Distance:</strong> 150m away
+                            <p class="mb-1">
+                                <strong>Distance:</strong><span id="card-distance"> Enable location to view distance</span>
                             </p>
     
                             <p class="mb-1">
                                 <strong>Crowd Level:</strong>
-                                <span id="card-current-congestion" class="text-danger">Busy</span>
+                                <b><span id="card-current-congestion">Busy</span></b>
                             </p>
     
                             <p class="mb-0">
                                 <strong>Expected Wait Time: </strong><span id="card-expected-wait-time"> 10–15 mins</span> 
+                            </p>
+                            <p class="mb-0">
+                                <em id="card-last-updated" class="text-muted">Last updated: 5 mins ago</em>
                             </p>
                         </div>
                     </div>
@@ -91,10 +94,10 @@
                         <div class="collapse update-collapse w-50 gap-1 align-items-center">
                             <div class="card card-body w-100">
                                 <div class="button-container">
-                                    <button type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
-                                    <button type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
-                                    <button type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
-    
+                                    <button id="five-min-btn" type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
+                                    <button id="ten-min-btn" type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
+                                    <button id="fifteen-min-btn" type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
+
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,9 @@ import { auth } from './firebaseConfig.js';
 import '../styles/style.css';
 import { onAuthReady } from './authentication.js';
 
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+
 export { collection, getDocs, getDoc, updateDoc, serverTimestamp, doc };
 
 // Recent locations management
@@ -80,6 +83,50 @@ function isInRecents(locationId) {
     return userRecents.some(item => item.id === locationId);
 }
 
+function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation not supported by this browser"));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        resolve({ lat, lng });
+      },
+      (error) => {
+        reject(new Error("Could not get user location: " + error.message));
+      }
+    );
+  });
+}
+
+function getCongestionColor(congestion) {
+  if (congestion === 'none') return '#22c55e';    // green
+  if (congestion === 'normal') return '#eab308';  // yellow
+  if (congestion === 'busy') return '#ef4444';    // red
+  return '#6b7280'; // grey fallback
+}
+
+function getTimeAgo(firestoreTimestamp) {
+    if (!firestoreTimestamp) return "Never updated";
+
+    const lastUpdated = firestoreTimestamp.toDate(); // convert to JS Date
+    const diffMs = Date.now() - lastUpdated.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+
+    if (diffMins < 1) return "Just now";
+    if (diffMins < 60) return `${diffMins} minute${diffMins === 1 ? '' : 's'} ago`;
+    
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+    
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+}
+
 async function displayCardsDynamically() {    
   let cardTemplate = document.getElementById("tile-template");
   if (!cardTemplate) return; // stop if template doesn't exist
@@ -89,18 +136,66 @@ async function displayCardsDynamically() {
   try {
     const querySnapshot = await getDocs(locationCollectionRef);
 
-    querySnapshot.forEach((docSnap) => {
+    querySnapshot.forEach(async (docSnap) => {
       const location = docSnap.data();
 
       // Clone the template
       let newCard = cardTemplate.content.cloneNode(true);
 
+      try {
+        const { lat, lng } = await getUserLocation();
+        // location-dependent code here
+        const R = 6371e3; // metres
+        const φ1 = location.latitude * Math.PI/180; // φ, λ in radians
+        const φ2 =  lat * Math.PI/180;
+        const Δφ = (lat - location.latitude) * Math.PI/180;
+        const Δλ = (lng - location.longitude) * Math.PI/180;
+
+        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        const d = R * c; // in metres
+
+        if (d > 1000) {
+            newCard.querySelector("#card-distance").textContent = ` ${(d/1000).toFixed(2)} km`;
+            newCard.querySelector("#collapse-card-distance").textContent = `Distance: ${(d/1000).toFixed(2)} km`;
+        } else {
+
+            newCard.querySelector("#card-distance").textContent = ` ${(d/1000).toFixed(2)} m`;
+            newCard.querySelector("#collapse-card-distance").textContent = `Distance: ${(d/1000).toFixed(2)} m`;
+
+        }
+
+        
+
+      } catch (err) {
+        console.warn("Location unavailable:", err.message);
+        // page continues running normally from here
+        // optionally show a message to the user
+    }
+
+      // Distance calculation (Haversine)
+
+      
+
+
+   
+
+
+      
+
       // Populate card fields
       newCard.querySelector("#card-title").textContent = location.name;
-      newCard.querySelector("#card-current-congestion").textContent =
-        location.currentCongestion;
+      const currentCongestionField = newCard.querySelector("#card-current-congestion");
+        currentCongestionField.textContent = location.currentCongestion;
+        currentCongestionField.style.color = getCongestionColor(location.currentCongestion);
       newCard.querySelector("#card-expected-wait-time").textContent =
         location.estimatedWaitTime;
+
+        newCard.querySelector("#card-last-updated").textContent = getTimeAgo(location.lastUpdated);
+
 
         // Populate collapse card fiels
           // Populate card fields
@@ -129,6 +224,9 @@ async function displayCardsDynamically() {
       const updateCollapseEl = thisRow.querySelector(".update-collapse");
       const confirmBtn = thisRow.querySelector(".confirm");
       const updateBtn = thisRow.querySelector(".update");
+      const fiveMinBtn = thisRow.querySelector("#five-min-btn");
+      const tenMinBtn = thisRow.querySelector("#ten-min-btn");
+      const fifteenMinBtn = thisRow.querySelector("#fifteen-min-btn");
 
             // Lazily create Collapse instances only on first interaction
             let detailCollapse = null;
@@ -174,6 +272,23 @@ async function displayCardsDynamically() {
                 }
                 // alert('Wait time confirmed! Thank you for your feedback.');
             });
+            fiveMinBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                updateDoc(locationDocRef, { estimatedWaitTime: '5 mins', currentCongestion: 'none', lastUpdated: serverTimestamp() });
+                updateCardDisplay(thisRow, '5 mins', 'none');
+            });
+
+            tenMinBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                updateDoc(locationDocRef, { estimatedWaitTime: '10 mins', currentCongestion: 'normal', lastUpdated: serverTimestamp() });
+                updateCardDisplay(thisRow, '10 mins', 'normal');
+            });
+
+            fifteenMinBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                updateDoc(locationDocRef, { estimatedWaitTime: '15 mins', currentCongestion: 'busy', lastUpdated: serverTimestamp() });
+                updateCardDisplay(thisRow, '15 mins', 'busy');
+            });
 
       updateBtn.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -184,6 +299,20 @@ async function displayCardsDynamically() {
     console.error("Error getting documents: ", error);
   }
 }
+
+function updateCardDisplay(row, waitTime, congestion) {
+
+    const congestionField = row.querySelector("#card-current-congestion");
+    congestionField.textContent = congestion;
+    congestionField.style.color = getCongestionColor(congestion);
+
+    row.querySelector("#card-expected-wait-time").textContent = waitTime;
+    row.querySelector("#collapse-card-wait-time").textContent = `Estimated Wait Time: ${waitTime}`;
+    row.querySelector("#collapse-card-congestion").textContent = congestion;
+    row.querySelector("#card-last-updated").textContent = "Just now";
+}
+
+
 
 // Toggle between All and Recents
 function setupRecentsToggle() {
