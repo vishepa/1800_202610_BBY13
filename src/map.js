@@ -13,8 +13,8 @@ import { query } from "firebase/firestore";
 // ------------------------------------------------------------
 // Global variable to store user location, hike data - good practice
 // ------------------------------------------------------------
-const appState = {
-  hikes: [],
+const list_locations = {
+  places: [],
   userLngLat: null
 };
 
@@ -52,13 +52,41 @@ function showMap() {
         map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
     });
-    // await addUserPin(map);
+    
 
     // await location markers
     await addLocationMarkers(map);
+    // await addUserPin(map);
     console.log("map loaded, placed user pin!");
-  });
+    console.log("Markers loaded into list_locations.places:", list_locations.places);
 
+    const searchBtn = document.getElementById('nav-search-btn');
+    const searchInput = document.getElementById('nav-search-input');
+
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            // Find the location in global array
+            const target = list_locations.places.find(loc => 
+                loc.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (target) {
+                map.flyTo({ center: [target.longitude, target.latitude], zoom: 17 });
+            } else {
+                alert("Search failed.");
+    }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchBtn.click();
+        });
+    }
+});
+
+  // Define these helper functions inside showMap so they have map access
   function addControls(map) {
     // Zoom and rotation
     map.addControl(new maplibregl.NavigationControl(), "top-right");
@@ -76,13 +104,14 @@ function showMap() {
     try {
       
       const querySnapshot = await getDocs(locationCollectionRef);
+      list_locations.places = [];
 
       querySnapshot.forEach((docSnap) => {
-  
-          const location = docSnap.data();
-
+      const location = docSnap.data();
+    
+      list_locations.places.push({ ...location, id: docSnap.id });
           const { latitude, longitude, name, currentCongestion, estimatedWaitTime } = location;
-          if (!latitude || !longitude) return;
+            if (!latitude || !longitude) return;
 
                     // Build the popup DOM element
           const popupEl = document.createElement('div');
@@ -117,6 +146,7 @@ function showMap() {
           popupEl.querySelectorAll('.time-btn').forEach(btn => {
             btn.addEventListener('click', () => {
               updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time });
+              popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
             });
           });
 
