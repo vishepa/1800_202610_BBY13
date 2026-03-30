@@ -79,10 +79,6 @@ function showMap() {
                 alert("Search failed.");
     }
         });
-
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchBtn.click();
-        });
     }
 });
 
