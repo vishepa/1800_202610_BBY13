@@ -143,8 +143,8 @@ async function displayCardsDynamically() {
       let newCard = cardTemplate.content.cloneNode(true);
 
       try {
+        // Distance calculation (Haversine)
         const { lat, lng } = await getUserLocation();
-        // location-dependent code here
         const R = 6371e3; // metres
         const φ1 = location.latitude * Math.PI/180; // φ, λ in radians
         const φ2 =  lat * Math.PI/180;
@@ -163,8 +163,8 @@ async function displayCardsDynamically() {
             newCard.querySelector("#collapse-card-distance").textContent = `Distance: ${(d/1000).toFixed(2)} km`;
         } else {
 
-            newCard.querySelector("#card-distance").textContent = ` ${(d/1000).toFixed(2)} m`;
-            newCard.querySelector("#collapse-card-distance").textContent = `Distance: ${(d/1000).toFixed(2)} m`;
+            newCard.querySelector("#card-distance").textContent = ` ${(d).toFixed(1)} m`;
+            newCard.querySelector("#collapse-card-distance").textContent = `Distance: ${(d).toFixed(1)} m`;
 
         }
 
@@ -176,7 +176,6 @@ async function displayCardsDynamically() {
         // optionally show a message to the user
     }
 
-      // Distance calculation (Haversine)
 
       
 
