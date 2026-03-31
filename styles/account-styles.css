@@ -31,6 +31,10 @@ body {
   padding: 40px 25px; */
 }
 
+form {
+  height: 89vh;
+}
+
 /* ================= LOGIN SCREEN ================= */
 
 /* .login h2 {
@@ -72,12 +76,11 @@ body {
 
 /* ================= PROFILE SCREEN ================= */
 
-.profile-header {
+/* .profile-header {
   background: #dcdde7;
-  height: 150px;
-  margin: -40px -25px 60px -25px;
+  height: 32vh;
   position: relative;
-}
+} */
 
 .avatar {
   width: 100px;
@@ -100,7 +103,14 @@ body {
 }
 
 .profile-item {
-  margin: 25px 0;
+  padding: 1rem 2rem;
+  margin-bottom: 3rem;
+  margin-left: 2rem;
+  margin-right: 3rem;
+}
+
+.first-profile {
+  padding-top: 6rem;
 }
 
 .profile-item {
@@ -117,8 +127,7 @@ body {
 
 .profile-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
+  justify-content: space-evenly;
 }
 
 .btn-edit {
