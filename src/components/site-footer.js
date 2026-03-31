@@ -20,7 +20,7 @@ class SiteFooter extends HTMLElement {
                 </a>
                 <div class="container d-flex justify-content-around ">
                      <a href="./congestion.html">
-                        <span class="material-icons icon-color">navigation</span>
+                        <span class="material-icons icon-color">hourglass_top</span>
                     </a>
                     <a href="./index.html">
                         <span class="material-icons icon-color">home</span>
