@@ -37,7 +37,7 @@
       <!-- Login -->
       <div id="loginView">
         <h3 class="mb-3 text-center">Login</h3>
-        <form id="loginForm" novalidate>
+        <form id="loginForm" novalidate autocomplete="off">
           <div class="mb-3">
             <input
               type="email"
@@ -45,6 +45,7 @@
               class="form-control"
               placeholder="Email"
               required
+              autocomplete="off"
             />
           </div>
           <div class="mb-3">
@@ -54,6 +55,7 @@
               class="form-control"
               placeholder="Password"
               required
+              autocomplete="new-password"
             />
           </div>
           <button type="submit" class="btn btn-primary w-100">Login</button>
@@ -67,7 +69,7 @@
       <!-- Signup -->
       <div id="signupView" class="d-none">
         <h3 class="mb-3 text-center">Sign Up</h3>
-        <form id="signupForm" novalidate>
+        <form id="signupForm" novalidate autocomplete="off">
           <div class="mb-3">
             <input
               type="text"
@@ -76,6 +78,7 @@
               placeholder="First and Last Name"
               aria-label="Full name"
               required
+              autocomplete="off"
             />
           </div>
           <div class="mb-3">
@@ -85,6 +88,7 @@
               class="form-control"
               placeholder="Email"
               required
+              autocomplete="off"
             />
           </div>
           <div class="mb-3">
@@ -94,6 +98,7 @@
               class="form-control"
               placeholder="Password"
               required
+              autocomplete="new-password"
             />
           </div>
           <button type="submit" class="btn btn-success w-100">
