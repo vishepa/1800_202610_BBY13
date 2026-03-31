@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import '../styles/style.css';
 
-import { collection, getDocs, getDoc, updateDoc, doc, serverTimestamp} from './main.js';
+import { collection, getDocs, getDoc, updateDoc, doc, serverTimestamp } from './main.js';
 import { db } from './firebaseConfig.js';
 import { auth } from './firebaseConfig.js';
 import { onAuthReady } from './authentication.js';
@@ -52,7 +52,7 @@ function showMap() {
         map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
     });
-    
+
 
     // await location markers
     await addLocationMarkers(map);
@@ -69,23 +69,23 @@ function showMap() {
     const searchInput = document.getElementById('nav-search-input');
 
     if (searchBtn && searchInput) {
-        searchBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            
-            // Find the location in global array
-            const target = list_locations.places.find(loc => 
-                loc.name.toLowerCase().includes(searchTerm)
-            );
+      searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const searchTerm = searchInput.value.toLowerCase().trim();
 
-            if (target) {
-                map.flyTo({ center: [target.longitude, target.latitude], zoom: 17 });
-            } else {
-                alert("Search failed.");
+        // Find the location in global array
+        const target = list_locations.places.find(loc =>
+          loc.name.toLowerCase().includes(searchTerm)
+        );
+
+        if (target) {
+          map.flyTo({ center: [target.longitude, target.latitude], zoom: 17 });
+        } else {
+          alert("Search failed.");
+        }
+      });
     }
-        });
-    }
-});
+  });
 
   // Define these helper functions inside showMap so they have map access
   function addControls(map) {
@@ -93,31 +93,31 @@ function showMap() {
     map.addControl(new maplibregl.NavigationControl(), "top-right");
   }
 
-  
+
 
 
   async function addLocationMarkers(map) {
 
     const locationCollectionRef = collection(db, "locations");
 
-    
-    
+
+
     try {
-      
+
       const querySnapshot = await getDocs(locationCollectionRef);
       list_locations.places = [];
 
       querySnapshot.forEach((docSnap) => {
-      const location = docSnap.data();
-    
-      list_locations.places.push({ ...location, id: docSnap.id });
-          const { latitude, longitude, name, currentCongestion, estimatedWaitTime } = location;
-            if (!latitude || !longitude) return;
+        const location = docSnap.data();
 
-                    // Build the popup DOM element
-          const popupEl = document.createElement('div');
-          popupEl.style.minWidth = '220px';
-          popupEl.innerHTML = `
+        list_locations.places.push({ ...location, id: docSnap.id });
+        const { latitude, longitude, name, currentCongestion, estimatedWaitTime } = location;
+        if (!latitude || !longitude) return;
+
+        // Build the popup DOM element
+        const popupEl = document.createElement('div');
+        popupEl.style.minWidth = '220px';
+        popupEl.innerHTML = `
             <h5>${name}</h5>
             <p class="mb-1"><strong>Crowd Level:</strong> ${currentCongestion}</p>
             <p class="mb-2"><strong>Wait:</strong> ${estimatedWaitTime}</p>
@@ -136,60 +136,60 @@ function showMap() {
             </div>
           `;
 
-          // Attach the same logic as main.js
-          const locationDocRef = doc(db, 'locations', docSnap.id);
+        // Attach the same logic as main.js
+        const locationDocRef = doc(db, 'locations', docSnap.id);
 
-          popupEl.querySelector('.confirm-btn').addEventListener('click', () => {
-            const confirmMsg = popupEl.querySelector('.confirm-msg');
-            updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
-            confirmMsg.style.display = 'block';
+        popupEl.querySelector('.confirm-btn').addEventListener('click', () => {
+          const confirmMsg = popupEl.querySelector('.confirm-msg');
+          updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
+          confirmMsg.style.display = 'block';
+        });
+
+        popupEl.querySelector('.update-btn').addEventListener('click', () => {
+          const opts = popupEl.querySelector('.update-options');
+          opts.style.display = opts.style.display === 'none' ? 'block' : 'none';
+        });
+
+        const congestionMap = {
+          '5 mins': 'none',
+          '10 mins': 'normal',
+          '15 mins': 'busy'
+        }
+
+        popupEl.querySelectorAll('.time-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+
+            const newCongestion = congestionMap[btn.dataset.time];
+            const updateMsg = popupEl.querySelector('.update-message');
+
+            updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time, currentCongestion: newCongestion, lastUpdated: serverTimestamp() });
+            popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
+            popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
+            updateMsg.style.display = 'block';
           });
+        });
 
-          popupEl.querySelector('.update-btn').addEventListener('click', () => {
-            const opts = popupEl.querySelector('.update-options');
-            opts.style.display = opts.style.display === 'none' ? 'block' : 'none';
-          });
-
-          const congestionMap = {
-            '5 mins' : 'none',
-            '10 mins' : 'normal',
-            '15 mins' : 'busy'
-          }
-
-          popupEl.querySelectorAll('.time-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-
-              const newCongestion = congestionMap[btn.dataset.time];
-              const updateMsg = popupEl.querySelector('.update-message');
-
-              updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time, currentCongestion: newCongestion, lastUpdated: serverTimestamp() });
-              popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
-              popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
-              updateMsg.style.display = 'block';
-            });
-          });
-
-          const popup = new maplibregl.Popup({ offset: 25 }).setDOMContent(popupEl);
+        const popup = new maplibregl.Popup({ offset: 25 }).setDOMContent(popupEl);
 
 
-          
-          new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
-            .setLngLat([longitude, latitude])
-            .setPopup(popup)
-            .addTo(map);
-  
+
+        new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
+          .setLngLat([longitude, latitude])
+          .setPopup(popup)
+          .addTo(map);
+
       });
 
 
 
     } catch (error) {
-        console.error("Error fetching location data:", error);
+      console.error("Error fetching location data:", error);
 
     }
 
 
   }
-    
+
 
 }
 
@@ -214,6 +214,9 @@ function addGeolocationControl(map) {
   });
   map.addControl(geolocate, "top-right");
 
+  // alert message for outside users
+  const alertBox = document.getElementById("campus-alert");
+
   const campusBounds = [
     [-123.0065, 49.2465],
     [-122.9890, 49.2575]
@@ -236,8 +239,13 @@ function addGeolocationControl(map) {
         center: [userLng, userLat],
         zoom: 17
       });
+
+      // hide alert if inside
+      alertBox.classList.add("d-none");
+
     } else {
-      console.log("User is outside BCIT campus");
+      // show alert if outside
+      alertBox.classList.remove("d-none");
     }
   });
 
