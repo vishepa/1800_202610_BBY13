@@ -132,7 +132,7 @@ function getTimeAgo(firestoreTimestamp) {
 
 // Main function to display cards based on Firestore data
 async function displayCardsDynamically() {    
-  let cardTemplate = document.getElementById("tile-template");
+  const cardTemplate = document.getElementById("tile-template");
   if (!cardTemplate) return; // stop if template doesn't exist
 
   const locationCollectionRef = collection(db, "locations");
@@ -140,15 +140,26 @@ async function displayCardsDynamically() {
   try {
     const querySnapshot = await getDocs(locationCollectionRef);
 
-    querySnapshot.forEach(async (docSnap) => {
+    let userCoords = null;
+    try {
+      userCoords = await getUserLocation();
+    } catch (err) {
+      console.warn("Location unavailable", err.message);
+    }
+
+    const cardEntries = [];
+
+    querySnapshot.forEach((docSnap) => {
       const location = docSnap.data();
 
       // Clone the template
       let newCard = cardTemplate.content.cloneNode(true);
 
-      try {
+      let distance = Infinity;
+
+      if (userCoords) {
         // Distance calculation (Haversine)
-        const { lat, lng } = await getUserLocation();
+        const { lat, lng } = userCoords;
         const R = 6371e3; // metres
         const φ1 = location.latitude * Math.PI/180; // φ, λ in radians
         const φ2 =  lat * Math.PI/180;
@@ -162,6 +173,8 @@ async function displayCardsDynamically() {
 
         const d = R * c; // in metres
 
+        distance = d;
+
         if (d > 1000) {
             newCard.querySelector("#card-distance").textContent = ` ${(d/1000).toFixed(2)} km`;
             newCard.querySelector("#collapse-card-distance").textContent = `Distance: ${(d/1000).toFixed(2)} km`;
@@ -174,19 +187,7 @@ async function displayCardsDynamically() {
 
         
 
-      } catch (err) {
-        console.warn("Location unavailable:", err.message);
-    }
-
-
-      
-
-
-   
-
-
-      
-
+      } 
       // Populate card fields
       newCard.querySelector("#card-title").textContent = location.name;
       const currentCongestionField = newCard.querySelector("#card-current-congestion");
@@ -214,12 +215,10 @@ async function displayCardsDynamically() {
       test.appendChild(img);
 
       // Append to DOM first
-      const container = document.getElementById("locations-go-here");
-      container.appendChild(newCard);
-
-            // lastElementChild is always the card we just appended
-            const thisRow = container.lastElementChild;
-            thisRow.dataset.locationId = docSnap.id;
+      const wrapper = document.createElement("div");
+      wrapper.appendChild(newCard);
+      const thisRow = wrapper.firstElementChild;
+      thisRow.dataset.locationId = docSnap.id; // store location ID for later use
 
       const collapseEl = thisRow.querySelector(".location-collapse");
       const updateCollapseEl = thisRow.querySelector(".update-collapse");
@@ -295,7 +294,15 @@ async function displayCardsDynamically() {
         e.stopPropagation();
         getUpdateCollapse().toggle();
       });
+
+      cardEntries.push({ distance, element: thisRow });
+
     });
+    // sort my closest to farthest before appending to DOM
+    cardEntries.sort((a, b) => a.distance - b.distance);
+
+    const container = document.getElementById("locations-go-here");
+    cardEntries.forEach(({ element }) => container.appendChild(element));
   } catch (error) {
     console.error("Error getting documents: ", error);
   }
