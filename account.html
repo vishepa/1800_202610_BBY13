@@ -22,19 +22,19 @@
 
     <!-- PROFILE SCREEN -->
     <div class="phone profile">
-      <form action="#" method="POST">
+      <form action="#" method="POST" autocomplete="off">
         <div class="profile-header">
           <!-- <div class="avatar"></div> -->
         </div>
 
         <div class="profile-item first-profile">
           <label>Profile Name</label>
-          <input type="text" id="name" name="name" value="Lionel Messi" />
+          <input type="text" id="name" name="name" value="" disabled />
         </div>
 
         <div class="profile-item">
           <label>Favourite Club</label>
-          <input type="text" id="club" name="club" value="Argentina" />
+          <input type="text" id="club" name="club" value="" disabled />
         </div>
 
         <div class="profile-item">
@@ -43,7 +43,9 @@
             type="email"
             id="email"
             name="email"
-            value="lmessi@gmail.com"
+            value=""
+            autocomplete="off"
+            disabled
           />
         </div>
 
@@ -54,6 +56,8 @@
             name="password"
             id="password"
             placeholder="Enter new password"
+            autocomplete="new-password"
+            disabled
           />
         </div>
 
