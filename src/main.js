@@ -83,6 +83,7 @@ function isInRecents(locationId) {
     return userRecents.some(item => item.id === locationId);
 }
 
+// Get user's current location with Promises
 function getUserLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -103,6 +104,7 @@ function getUserLocation() {
   });
 }
 
+// Map congestion status to colors
 function getCongestionColor(congestion) {
   if (congestion === 'none') return '#22c55e';    // green
   if (congestion === 'normal') return '#eab308';  // yellow
@@ -110,6 +112,7 @@ function getCongestionColor(congestion) {
   return '#6b7280'; // grey fallback
 }
 
+// Convert Firestore timestamp to "time ago" format
 function getTimeAgo(firestoreTimestamp) {
     if (!firestoreTimestamp) return "Never updated";
 
@@ -127,6 +130,7 @@ function getTimeAgo(firestoreTimestamp) {
     return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
 }
 
+// Main function to display cards based on Firestore data
 async function displayCardsDynamically() {    
   let cardTemplate = document.getElementById("tile-template");
   if (!cardTemplate) return; // stop if template doesn't exist
@@ -172,8 +176,6 @@ async function displayCardsDynamically() {
 
       } catch (err) {
         console.warn("Location unavailable:", err.message);
-        // page continues running normally from here
-        // optionally show a message to the user
     }
 
 
@@ -299,6 +301,7 @@ async function displayCardsDynamically() {
   }
 }
 
+// Update card display after user feedback
 function updateCardDisplay(row, waitTime, congestion) {
 
     const congestionField = row.querySelector("#card-current-congestion");
