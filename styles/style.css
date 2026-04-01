@@ -76,7 +76,16 @@ footer {
 
 /* footer resize  */
 .py-3 {
-    padding-top: 1.3rem !important;
+  padding-top: 1.3rem !important;
+}
+
+.icon-name {
+  color: #fefefe;
+
+}
+
+.footer-item {
+  text-decoration: none;
 }
 
 .cafe-img-wrapper {
@@ -142,7 +151,7 @@ footer {
   transform: scale(1.1);
 } */
 
-.tile-row:hover{
+.tile-row:hover {
 
   transform: scale(1.1);
 }
@@ -165,8 +174,8 @@ footer {
 }
 
 /* map.html css */
-.container-fluid{
-  padding-left: 0 !important; 
+.container-fluid {
+  padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
