@@ -13,11 +13,7 @@ class SiteFooter extends HTMLElement {
     this.innerHTML = `
 
             <footer class="d-flex flex-wrap sticky-bottom justify-content-between align-items-center py-3 border-top footer-bg">
-                <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
+                
                 <div class="container d-flex justify-content-around ">
                      <a href="./congestion.html">
                         <span class="material-icons icon-color">hourglass_top</span>
@@ -35,6 +31,13 @@ class SiteFooter extends HTMLElement {
 
         `;
   }
+
+//   //deleted the a tag of the footer, comes right after <footer class"d-flex....> it was messing with the user click
+//   <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+//                     <svg class="bi me-2" width="40" height="32">
+//                         <use xlink:href="#bootstrap" />
+//                     </svg>
+//                 </a>
 
   // renderAuthControls(){
   //     const authControls = this.querySelector('#authControls');
