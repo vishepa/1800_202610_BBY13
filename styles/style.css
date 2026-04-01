@@ -160,14 +160,9 @@ footer {
 }
 
 /* map.html css */
-
-.map-page-title {
-  padding-bottom: 1rem;
-}
-
-.map-title {
-  padding-top: 2rem;
-  padding-bottom: 1rem;
+.container-fluid{
+  padding-left: 0 !important; 
+  padding-right: 0 !important;
 }
 
 .map-body {
