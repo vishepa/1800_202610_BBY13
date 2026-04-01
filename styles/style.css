@@ -74,6 +74,11 @@ footer {
   background-color: #c4e6ea;
 }
 
+/* footer resize  */
+.py-3 {
+    padding-top: 1.3rem !important;
+}
+
 .cafe-img-wrapper {
   height: 150px;
   overflow: hidden;
