@@ -111,6 +111,12 @@ footer {
   background-color: #e1e2f2;
 }
 
+/* scrollable main part */
+.congestion-scroll {
+  height: 80vh;
+  overflow: scroll;
+}
+
 .confirm-msg {
   visibility: hidden;
   color: green;
