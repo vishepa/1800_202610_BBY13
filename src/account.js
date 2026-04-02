@@ -22,24 +22,54 @@ import {
 
 const db = getFirestore();
 const auth = getAuth();
+const authButton = document.getElementById("logoutBtn");
+
 //test in console to see if uid is generated.
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("User UID:", user.uid);
+    // User is logged in → enable fields
+    document.getElementById("name").disabled = false;
+    document.getElementById("club").disabled = false;
+    document.getElementById("email").disabled = false;
+    document.getElementById("password").disabled = false;
+
+    // User is logged in
+    authButton.textContent = "Log Out";
+    authButton.onclick = () => {
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+      });
+    };
   } else {
     console.log("No user logged in");
+    // User is logged out → keep fields disabled
+    document.getElementById("name").disabled = true;
+    document.getElementById("club").disabled = true;
+    document.getElementById("email").disabled = true;
+    document.getElementById("password").disabled = true;
+    // User is logged out
+    authButton.textContent = "Log In";
+    authButton.onclick = () => {
+      window.location.href = "login.html";
+    };
   }
 });
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  signOut(auth)
-    .then(() => {
-      window.location.href = "index.html";
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+// document.getElementById("logoutBtn").addEventListener("click", () => {
+//   signOut(auth)
+//     .then(() => {
+//       document.getElementById("email").value = "";
+//       document.getElementById("password").value = "";
+
+//       window.location.href = "index.html";
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// });
 
 // document.getElementById("homeBtn").addEventListener("click", function () {
 //   window.location.href = "index.html";
@@ -108,6 +138,10 @@ async function loadUser() {
 onAuthStateChanged(auth, (user) => {
   if (user) {
     loadUser();
+  }
+  if (!user) {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
   }
 });
 
