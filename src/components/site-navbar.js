@@ -14,7 +14,7 @@ class SiteNavbar extends HTMLElement {
     renderNavbar() {
         this.innerHTML = `
 
-            <nav class="navbar navbar-expand-lg navbar-light nav-bg">
+            <nav class="navbar navbar-expand-lg navbar-light nav-bg nav-padding">
                 <div class="container-fluid nav-height">
                     <a class="navbar-brand navbar-text-color" href="./index.html">TheShortCut</a>
                 <button
@@ -29,11 +29,7 @@ class SiteNavbar extends HTMLElement {
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse navbar-collapse-color" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <p>&#9786;</p>
-                    </li>
-                </ul>
+                
                 <form class="d-flex">
                     <input
                     id="nav-search-input"
@@ -76,3 +72,10 @@ class SiteNavbar extends HTMLElement {
 }
 
 customElements.define('site-navbar', SiteNavbar)
+
+//pre navbar modification
+// <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+//     <li class="nav-item">
+//     <p>&#9786;</p>
+//     </li>
+// </ul>

@@ -163,6 +163,15 @@ footer {
 }
 
 /* Nav-bar css */
+.navbar {
+  --bs-navbar-padding-x: 1.5rem !important;
+}
+
+/* .nav-height {
+  padding-top: 0.75rem;
+  padding-bottom: 0.5rem;
+} */
+
 .navbar-brand {
   color: #fefefe !important;
 }
@@ -177,6 +186,11 @@ footer {
 
 .navbar-collapse-color {
   background-color: #040b54;
+      justify-content: end;
+}
+
+.my-4 {
+  margin-bottom: 0 !important;
 }
 
 /* map.html css */
