@@ -105,6 +105,7 @@ document
 
     alert("Account saved!");
     console.log("Firestore write finished");
+    window.location.href = "../index.html";
   });
 
 // fetch and read the doc data from firestore, then display them in account input box
