@@ -70,19 +70,18 @@ class SiteNavbar extends HTMLElement {
         });
     }
     connectedCallback() {
-    // 1. Select the form itself, not just the button
+    // Select the form itself, not just the button
     const searchForm = this.querySelector('form');
     const searchInput = this.querySelector('#nav-search-input');
 
     if (searchForm) {
         searchForm.addEventListener('submit', (e) => {
-            // 2. This is CRITICAL: it stops the "Enter" key from refreshing the page
+            // it stops the "Enter" key from refreshing the page
             e.preventDefault(); 
 
             const query = searchInput.value.trim();
             if (!query) return;
 
-            // 3. Your existing logic
             if (window.location.pathname.includes('map.html')) {
                 console.log("Searching via Enter/Click without reload...");
                 
