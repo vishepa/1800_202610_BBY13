@@ -38,7 +38,7 @@ class SiteNavbar extends HTMLElement {
                     placeholder="Search"
                     aria-label="Search"
                     />
-                    <button id="nav-search-btn" class="btn btn-search-custom" type="button">
+                    <button id="nav-search-btn" class="btn btn-search-custom" type="submit">
                     Search
                     </button>
                 </form>
@@ -70,28 +70,32 @@ class SiteNavbar extends HTMLElement {
         });
     }
     connectedCallback() {
-    const searchBtn = this.querySelector('#nav-search-btn');
+    // 1. Select the form itself, not just the button
+    const searchForm = this.querySelector('form');
     const searchInput = this.querySelector('#nav-search-input');
 
-    searchBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Stop any default form behavior
-        const query = searchInput.value.trim();
-        if (!query) return;
+    if (searchForm) {
+        searchForm.addEventListener('submit', (e) => {
+            // 2. This is CRITICAL: it stops the "Enter" key from refreshing the page
+            e.preventDefault(); 
 
-        // Check if we are already on the map page
-        if (window.location.pathname.includes('map.html')) {
-            console.log("Already on map page, searching without reload...");
-            
-            const searchEvent = new CustomEvent('navbarSearch', { 
-                detail: { query: query } 
-            });
-            window.dispatchEvent(searchEvent);
-            
-        } else {
-            // We are on a different page, so we MUST redirect
-            window.location.href = `map.html?search=${encodeURIComponent(query)}`;
-        }
-    });
+            const query = searchInput.value.trim();
+            if (!query) return;
+
+            // 3. Your existing logic
+            if (window.location.pathname.includes('map.html')) {
+                console.log("Searching via Enter/Click without reload...");
+                
+                const searchEvent = new CustomEvent('navbarSearch', { 
+                    detail: { query: query } 
+                });
+                window.dispatchEvent(searchEvent);
+                
+            } else {
+                window.location.href = `map.html?search=${encodeURIComponent(query)}`;
+            }
+        });
+    }
 }
 }
 
