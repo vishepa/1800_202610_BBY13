@@ -69,6 +69,30 @@ class SiteNavbar extends HTMLElement {
             }
         });
     }
+    connectedCallback() {
+    const searchBtn = this.querySelector('#nav-search-btn');
+    const searchInput = this.querySelector('#nav-search-input');
+
+    searchBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Stop any default form behavior
+        const query = searchInput.value.trim();
+        if (!query) return;
+
+        // Check if we are already on the map page
+        if (window.location.pathname.includes('map.html')) {
+            console.log("Already on map page, searching without reload...");
+            
+            const searchEvent = new CustomEvent('navbarSearch', { 
+                detail: { query: query } 
+            });
+            window.dispatchEvent(searchEvent);
+            
+        } else {
+            // We are on a different page, so we MUST redirect
+            window.location.href = `map.html?search=${encodeURIComponent(query)}`;
+        }
+    });
+}
 }
 
 customElements.define('site-navbar', SiteNavbar)
