@@ -246,3 +246,12 @@ footer {
   color: #040B54;
   white-space: nowrap;
 }
+.btn-search-custom {
+  color: #E6B952 !important;
+  border-color: #E6B952 !important;
+  transition: all 0.3s ease;
+}
+.btn-search-custom:hover {
+  background-color: #E6B952 !important;
+  color: #ffffff !important;
+}

@@ -38,7 +38,7 @@ class SiteNavbar extends HTMLElement {
                     placeholder="Search"
                     aria-label="Search"
                     />
-                    <button id="nav-search-btn" class="btn btn-outline-success" type="button">
+                    <button id="nav-search-btn" class="btn btn-search-custom" type="button">
                     Search
                     </button>
                 </form>
