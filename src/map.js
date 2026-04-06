@@ -166,6 +166,9 @@ function showMap() {
             popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
             popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
             updateMsg.style.display = 'block';
+            const element = marker.getElement();
+            const svg = element.querySelector('svg');
+            svg.querySelector('path').setAttribute('fill', getCongestionColor(newCongestion));
           });
         });
 
@@ -173,7 +176,7 @@ function showMap() {
 
 
 
-        new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
+        const marker =new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
           .addTo(map);
