@@ -256,3 +256,13 @@ footer {
   font-weight: 350;
   color: #f8f8f8;
 }
+
+.btn-search-custom {
+  color: #e6b952 !important;
+  border-color: #e6b952 !important;
+  transition: all 0.3s ease;
+}
+.btn-search-custom:hover {
+  background-color: #e6b952 !important;
+  color: #ffffff !important;
+}

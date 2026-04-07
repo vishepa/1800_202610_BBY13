@@ -58,12 +58,23 @@ function showMap() {
     await addLocationMarkers(map);
 
     // signal when data is ready
-    await addLocationMarkers(map);
     resolveReady(list_locations);
 
     // await addUserPin(map);
     console.log("map loaded, placed user pin!");
     console.log("Markers loaded into list_locations.places:", list_locations.places);
+
+    const params = new URLSearchParams(window.location.search);
+    const urlQuery = params.get('search');
+    
+    if (urlQuery) {
+        executeSearch(urlQuery, map); 
+    }
+    // The page wont refresh any time someone does a search
+    window.addEventListener('navbarSearch', (e) => {
+        const query = e.detail.query;
+        executeSearch(query, map);
+    });
 
     const searchBtn = document.getElementById('nav-search-btn');
     const searchInput = document.getElementById('nav-search-input');
@@ -72,22 +83,20 @@ function showMap() {
       searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const searchTerm = searchInput.value.toLowerCase().trim();
-
         // Find the location in global array
         const target = list_locations.places.find(loc =>
           loc.name.toLowerCase().includes(searchTerm)
         );
 
         if (target) {
-          map.flyTo({ center: [target.longitude, target.latitude], zoom: 17 });
+          map.flyTo({ center: [target.longitude, target.latitude], zoom: 19 });
         } else {
           alert("Search failed.");
         }
       });
     }
   });
-
-  // Define these helper functions inside showMap so they have map access
+  
   function addControls(map) {
     // Zoom and rotation
     map.addControl(new maplibregl.NavigationControl(), "top-right");
@@ -166,6 +175,9 @@ function showMap() {
             popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
             popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
             updateMsg.style.display = 'block';
+            const element = marker.getElement();
+            const svg = element.querySelector('svg');
+            svg.querySelector('path').setAttribute('fill', getCongestionColor(newCongestion));
           });
         });
 
@@ -173,7 +185,7 @@ function showMap() {
 
 
 
-        new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
+        const marker =new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
           .addTo(map);
@@ -191,6 +203,32 @@ function showMap() {
   }
 
 
+}
+async function executeSearch(query, mapInstance) {
+    console.log("Searching for:", query);
+    
+    // Wait for the mapReady promise to ensure data is loaded
+    await mapReady; 
+
+    const searchTerm = query.toLowerCase().trim();
+
+    // Find the location in your global array
+    const target = list_locations.places.find(loc =>
+        loc.name.toLowerCase().includes(searchTerm)
+    );
+
+    if (target && mapInstance) {
+        mapInstance.flyTo({ 
+            center: [target.longitude, target.latitude], 
+            zoom: 19,
+            essential: true 
+        });
+        
+        // Optional: Open the popup automatically
+        // This is advanced, but for now, flyTo is the priority.
+    } else {
+        console.warn("Location not found for query:", query);
+    }
 }
 
 // Helper to pick color based on congestion

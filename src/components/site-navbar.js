@@ -40,7 +40,7 @@ class SiteNavbar extends HTMLElement {
                     placeholder="Search"
                     aria-label="Search"
                     />
-                    <button id="nav-search-btn" class="btn btn-outline-success" type="button">
+                    <button id="nav-search-btn" class="btn btn-search-custom" type="submit">
                     Search
                     </button>
                 </form>
@@ -71,19 +71,32 @@ class SiteNavbar extends HTMLElement {
       }
     });
   }
-  //greeting message to the logged in user, it disappears after logging out
-  setupGreeting() {
-    const greetingDiv = this.querySelector("#greeting");
 
-    onAuthStateChanged(auth, (user) => {
-      console.log("User object:", user);
-      if (user) {
-        const name = user.displayName || user.email.split("@")[0];
-        greetingDiv.textContent = `Hello, ${name}`;
-      } else {
-        greetingDiv.textContent = "";
-      }
-    });
+  connectedCallback() {
+    // Select the form itself, not just the button
+    const searchForm = this.querySelector("form");
+    const searchInput = this.querySelector("#nav-search-input");
+
+    if (searchForm) {
+      searchForm.addEventListener("submit", (e) => {
+        // it stops the "Enter" key from refreshing the page
+        e.preventDefault();
+
+        const query = searchInput.value.trim();
+        if (!query) return;
+
+        if (window.location.pathname.includes("map.html")) {
+          console.log("Searching via Enter/Click without reload...");
+
+          const searchEvent = new CustomEvent("navbarSearch", {
+            detail: { query: query },
+          });
+          window.dispatchEvent(searchEvent);
+        } else {
+          window.location.href = `map.html?search=${encodeURIComponent(query)}`;
+        }
+      });
+    }
   }
 }
 
