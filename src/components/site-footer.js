@@ -39,15 +39,6 @@ class SiteFooter extends HTMLElement {
         `;
   }
 
-  //when the attribute of href="./account.html" in <a> The browser navigates immediately to account.html
-  //JavaScript never gets a chance to run,the redirect logic and click handler is ignored,never checks Firebase auth,
-  /* footer is a custom element, not part of the global DOM at the moment the script runs.
-    the document.getElementById() can return null if the component hasn’t been attached to the DOM yet.
-    Inside a custom element, the HTML is not part of the global document until after the component renders.
-    Inside a custom element, you should always query inside the component, not the global document.
-    This guarantees the element is found because it searches inside the footer, not the whole page.
-    this.querySelector waits until the box is filled and is the correct way to access elements inside a custom element.
-    */
   // clicking the account page button brings the user to the login page if the user is not logged in
   setupAccountButton() {
     const accountBtn = document.getElementById("accountBtn");
