@@ -1,22 +1,24 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '/src/firebaseConfig.js';
-import { logoutUser } from '/src/authentication.js';
+import { auth } from "/src/firebaseConfig.js";
+import { logoutUser } from "/src/authentication.js";
 import "../../styles/style.css";
 
 class SiteNavbar extends HTMLElement {
+  constructor() {
+    super();
+    this.renderNavbar();
+    this.renderAuthControls();
+    this.setupGreeting();
+  }
 
-    constructor() {
-        super();
-        this.renderNavbar();
-        this.renderAuthControls();
-    }
-
-    renderNavbar() {
-        this.innerHTML = `
+  renderNavbar() {
+    this.innerHTML = `
 
             <nav class="navbar navbar-expand-lg navbar-light nav-bg nav-padding">
                 <div class="container-fluid nav-height">
                     <a class="navbar-brand navbar-text-color" href="./index.html">TheShortCut</a>
+                    <div id="greeting" class="greeting"></div>
+
                 <button
                 class="navbar-toggler toggle-color"
                 type="button"
@@ -49,56 +51,56 @@ class SiteNavbar extends HTMLElement {
             </div>
             </nav>
         `;
-    }
+  }
 
-    renderAuthControls(){
-        const authControls = this.querySelector('#authControls');
+  renderAuthControls() {
+    const authControls = this.querySelector("#authControls");
 
-        authControls.innerHTML = `<div class="btn btn-outline-light" style="visibility: hidden; min-width: 80px;">Log out</div>`;
+    authControls.innerHTML = `<div class="btn btn-outline-light" style="visibility: hidden; min-width: 80px;">Log out</div>`;
 
-        onAuthStateChanged(auth, (user) => {
-            let updatedAuthControl;
-            if (user) {
-                updatedAuthControl = `<button class="btn btn-outline-light" id="signOutBtn" type="button" style="min-width: 80px;">Log out</button>`;
-                authControls.innerHTML = updatedAuthControl;
-                const signOutBtn = authControls.querySelector('#signOutBtn');
-                signOutBtn?.addEventListener('click', logoutUser);
-            } else {
-                updatedAuthControl = `<a class="btn btn-outline-light" id="loginBtn" href="/login.html" style="min-width: 80px;">Log in</a>`;
-                authControls.innerHTML = updatedAuthControl;
-            }
-        });
-    }
-    connectedCallback() {
+    onAuthStateChanged(auth, (user) => {
+      let updatedAuthControl;
+      if (user) {
+        updatedAuthControl = `<button class="btn btn-outline-light" id="signOutBtn" type="button" style="min-width: 80px;">Log out</button>`;
+        authControls.innerHTML = updatedAuthControl;
+        const signOutBtn = authControls.querySelector("#signOutBtn");
+        signOutBtn?.addEventListener("click", logoutUser);
+      } else {
+        updatedAuthControl = `<a class="btn btn-outline-light" id="loginBtn" href="/login.html" style="min-width: 80px;">Log in</a>`;
+        authControls.innerHTML = updatedAuthControl;
+      }
+    });
+  }
+
+  connectedCallback() {
     // Select the form itself, not just the button
-    const searchForm = this.querySelector('form');
-    const searchInput = this.querySelector('#nav-search-input');
+    const searchForm = this.querySelector("form");
+    const searchInput = this.querySelector("#nav-search-input");
 
     if (searchForm) {
-        searchForm.addEventListener('submit', (e) => {
-            // it stops the "Enter" key from refreshing the page
-            e.preventDefault(); 
+      searchForm.addEventListener("submit", (e) => {
+        // it stops the "Enter" key from refreshing the page
+        e.preventDefault();
 
-            const query = searchInput.value.trim();
-            if (!query) return;
+        const query = searchInput.value.trim();
+        if (!query) return;
 
-            if (window.location.pathname.includes('map.html')) {
-                console.log("Searching via Enter/Click without reload...");
-                
-                const searchEvent = new CustomEvent('navbarSearch', { 
-                    detail: { query: query } 
-                });
-                window.dispatchEvent(searchEvent);
-                
-            } else {
-                window.location.href = `map.html?search=${encodeURIComponent(query)}`;
-            }
-        });
+        if (window.location.pathname.includes("map.html")) {
+          console.log("Searching via Enter/Click without reload...");
+
+          const searchEvent = new CustomEvent("navbarSearch", {
+            detail: { query: query },
+          });
+          window.dispatchEvent(searchEvent);
+        } else {
+          window.location.href = `map.html?search=${encodeURIComponent(query)}`;
+        }
+      });
     }
-}
+  }
 }
 
-customElements.define('site-navbar', SiteNavbar)
+customElements.define("site-navbar", SiteNavbar);
 
 //pre navbar modification
 // <ul class="navbar-nav me-auto mb-2 mb-lg-0">

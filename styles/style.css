@@ -81,7 +81,6 @@ footer {
 
 .icon-name {
   color: #fefefe;
-
 }
 
 .footer-item {
@@ -158,13 +157,13 @@ footer {
 } */
 
 .tile-row:hover {
-
   transform: scale(1.1);
 }
 
 /* Nav-bar css */
 .navbar {
   --bs-navbar-padding-x: 1.5rem !important;
+  position: relative; /*Creates a positioning context for children (greeting)*/
 }
 
 /* .nav-height {
@@ -186,7 +185,7 @@ footer {
 
 .navbar-collapse-color {
   background-color: #040b54;
-      justify-content: end;
+  justify-content: end;
 }
 
 .my-4 {
@@ -206,7 +205,6 @@ footer {
 footer {
   background-color: #c4e6ea;
 }
-
 
 /* Recents Toggle Styling */
 .recents-toggle-wrapper {
@@ -229,29 +227,42 @@ footer {
 }
 
 .form-check-input:checked {
-  background-color: #040B54;
-  border-color: #040B54;
+  background-color: #040b54;
+  border-color: #040b54;
   box-shadow: none;
 }
 
 .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem rgba(4, 11, 84, 0.25);
-  border-color: #040B54;
+  border-color: #040b54;
 }
 
 .form-check-label {
   margin-bottom: 0;
   cursor: pointer;
   font-weight: 500;
-  color: #040B54;
+  color: #040b54;
   white-space: nowrap;
 }
+
+.greeting {
+  /*Positions element relative to the nearest positioned ancestor (navbar), 
+    it overrides flexbox behavior that centers the content when navbar collapses and makes greeting stay on the top left with all screen width*/
+  position: absolute;
+  top: 7px; /*Moves the element 10px down*/
+  left: 150px;
+  margin: 10px;
+  font-size: 1rem;
+  font-weight: 350;
+  color: #f8f8f8;
+}
+
 .btn-search-custom {
-  color: #E6B952 !important;
-  border-color: #E6B952 !important;
+  color: #e6b952 !important;
+  border-color: #e6b952 !important;
   transition: all 0.3s ease;
 }
 .btn-search-custom:hover {
-  background-color: #E6B952 !important;
+  background-color: #e6b952 !important;
   color: #ffffff !important;
 }
