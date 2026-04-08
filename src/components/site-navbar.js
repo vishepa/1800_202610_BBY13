@@ -72,6 +72,21 @@ class SiteNavbar extends HTMLElement {
     });
   }
 
+  //greeting message to the logged in user, it disappears after logging out
+  setupGreeting() {
+    const greetingDiv = this.querySelector("#greeting");
+
+    onAuthStateChanged(auth, (user) => {
+      console.log("User object:", user);
+      if (user) {
+        const name = user.displayName || user.email.split("@")[0];
+        greetingDiv.textContent = `Hello, ${name}`;
+      } else {
+        greetingDiv.textContent = "";
+      }
+    });
+  }
+
   connectedCallback() {
     // Select the form itself, not just the button
     const searchForm = this.querySelector("form");
