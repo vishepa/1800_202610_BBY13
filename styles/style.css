@@ -13,6 +13,9 @@
   --bs-btn-hover-border-color: #040b54;
   --bs-btn-active-bg: #040b54;
   --bs-btn-active-border-color: #040b54;
+
+  /* width: 25%;
+  height:auto; */
 }
 
 .explore-btn {
@@ -114,6 +117,7 @@ footer {
 /* scrollable main part */
 .congestion-scroll {
   height: 80vh;
+  width: 100%;
   overflow: scroll;
 }
 
@@ -246,3 +250,26 @@ footer {
   color: #040B54;
   white-space: nowrap;
 }
+
+#tile-template {
+  width: 100%;
+}
+
+/*
+@media (max-width: 425px) {
+  .tile-row {
+    width: 100%;
+    height: auto;
+  } 
+
+  .cafe-img-wrapper {
+
+    width: auto;
+    height: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    height: auto;
+  }
+}*/

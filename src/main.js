@@ -133,7 +133,7 @@ function getTimeAgo(firestoreTimestamp) {
 // Main function to display cards based on Firestore data
 async function displayCardsDynamically() {    
   const cardTemplate = document.getElementById("tile-template");
-  if (!cardTemplate) return; // stop if template doesn't exist
+  if (!cardTemplate) return; 
 
   const locationCollectionRef = collection(db, "locations");
 
@@ -188,7 +188,7 @@ async function displayCardsDynamically() {
         
 
       } 
-      // Populate card fields
+      // Fill the cards
       newCard.querySelector("#card-title").textContent = location.name;
       const currentCongestionField = newCard.querySelector("#card-current-congestion");
         currentCongestionField.textContent = location.currentCongestion;
@@ -199,8 +199,8 @@ async function displayCardsDynamically() {
         newCard.querySelector("#card-last-updated").textContent = getTimeAgo(location.lastUpdated);
 
 
-        // Populate collapse card fiels
-          // Populate card fields
+        // Fill the Collapse section as well
+        
       newCard.querySelector("#collapse-card-title").textContent = location.name;
       newCard.querySelector("#collapse-card-congestion").textContent =
         location.currentCongestion;
@@ -214,7 +214,7 @@ async function displayCardsDynamically() {
       const test = newCard.querySelector("#img-wrapper");
       test.appendChild(img);
 
-      // Append to DOM first
+      // attatches cards below each other
       const wrapper = document.createElement("div");
       wrapper.appendChild(newCard);
       const thisRow = wrapper.firstElementChild;
@@ -228,7 +228,7 @@ async function displayCardsDynamically() {
       const tenMinBtn = thisRow.querySelector("#ten-min-btn");
       const fifteenMinBtn = thisRow.querySelector("#fifteen-min-btn");
 
-            // Lazily create Collapse instances only on first interaction
+            //create collapses when needed and reuse them for better performance
             let detailCollapse = null;
             let updateCollapse = null;
 
