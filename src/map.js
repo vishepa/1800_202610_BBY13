@@ -131,7 +131,7 @@ function showMap() {
             <p class="mb-1"><strong>Crowd Level:</strong> ${currentCongestion}</p>
             <p class="mb-2"><strong>Wait:</strong> ${estimatedWaitTime}</p>
             <button class="btn btn-primary btn-sm w-100 mb-1 confirm-btn">Confirm Wait Time</button>
-            <div class="confirm-msg mb-0" style="display:none">
+            <div class="confirm-msg mb-0">
               <p>Thanks for confirming!</p>
             </div>
             <button class="btn btn-outline-secondary btn-sm w-100 update-btn">Update Wait Time</button>
@@ -152,6 +152,7 @@ function showMap() {
           const confirmMsg = popupEl.querySelector('.confirm-msg');
           updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
           confirmMsg.style.display = 'block';
+          confirmMsg.style.visibility = 'visible';
         });
 
         popupEl.querySelector('.update-btn').addEventListener('click', () => {
@@ -175,6 +176,7 @@ function showMap() {
             popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
             popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
             updateMsg.style.display = 'block';
+            updateMsg.style.visibility = 'visible';
             const element = marker.getElement();
             const svg = element.querySelector('svg');
             svg.querySelector('path').setAttribute('fill', getCongestionColor(newCongestion));
