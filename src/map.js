@@ -15,6 +15,7 @@ import { query } from "firebase/firestore";
 // ------------------------------------------------------------
 const list_locations = {
   places: [],
+  markers: {},
   userLngLat: null
 };
 
@@ -90,6 +91,13 @@ function showMap() {
 
         if (target) {
           map.flyTo({ center: [target.longitude, target.latitude], zoom: 19 });
+
+          map.once('moveend', () => {
+            const marker = list_locations.markers[target.id];
+            if (marker && !marker.getPopup().isOpen()) {
+              marker.togglePopup();
+            }
+        });
         } else {
           alert("Search failed.");
         }
@@ -187,10 +195,12 @@ function showMap() {
 
 
 
-        const marker =new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
+        const marker = new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
           .addTo(map);
+
+          list_locations.markers[docSnap.id] = marker;
 
       });
 
@@ -225,9 +235,15 @@ async function executeSearch(query, mapInstance) {
             zoom: 19,
             essential: true 
         });
+
+        mapInstance.once('moveend', () => {
+            const marker = list_locations.markers[target.id];
+            if (marker && !marker.getPopup().isOpen()) {
+                marker.togglePopup();
+            }
+        });
         
-        // Optional: Open the popup automatically
-        // This is advanced, but for now, flyTo is the priority.
+        
     } else {
         console.warn("Location not found for query:", query);
     }
