@@ -15,6 +15,7 @@ import { query } from "firebase/firestore";
 // ------------------------------------------------------------
 const list_locations = {
   places: [],
+  markers: {},
   userLngLat: null
 };
 
@@ -90,6 +91,13 @@ function showMap() {
 
         if (target) {
           map.flyTo({ center: [target.longitude, target.latitude], zoom: 19 });
+
+          map.once('moveend', () => {
+            const marker = list_locations.markers[target.id];
+            if (marker && !marker.getPopup().isOpen()) {
+              marker.togglePopup();
+            }
+        });
         } else {
           alert("Search failed.");
         }
@@ -131,7 +139,7 @@ function showMap() {
             <p class="mb-1"><strong>Crowd Level:</strong> ${currentCongestion}</p>
             <p class="mb-2"><strong>Wait:</strong> ${estimatedWaitTime}</p>
             <button class="btn btn-primary btn-sm w-100 mb-1 confirm-btn">Confirm Wait Time</button>
-            <div class="confirm-msg mb-0" style="display:none">
+            <div class="confirm-msg mb-0">
               <p>Thanks for confirming!</p>
             </div>
             <button class="btn btn-outline-secondary btn-sm w-100 update-btn">Update Wait Time</button>
@@ -152,6 +160,7 @@ function showMap() {
           const confirmMsg = popupEl.querySelector('.confirm-msg');
           updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
           confirmMsg.style.display = 'block';
+          confirmMsg.style.visibility = 'visible';
         });
 
         popupEl.querySelector('.update-btn').addEventListener('click', () => {
@@ -175,6 +184,7 @@ function showMap() {
             popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
             popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
             updateMsg.style.display = 'block';
+            updateMsg.style.visibility = 'visible';
             const element = marker.getElement();
             const svg = element.querySelector('svg');
             svg.querySelector('path').setAttribute('fill', getCongestionColor(newCongestion));
@@ -185,10 +195,12 @@ function showMap() {
 
 
 
-        const marker =new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
+        const marker = new maplibregl.Marker({ color: getCongestionColor(currentCongestion) })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
           .addTo(map);
+
+          list_locations.markers[docSnap.id] = marker;
 
       });
 
@@ -223,9 +235,15 @@ async function executeSearch(query, mapInstance) {
             zoom: 19,
             essential: true 
         });
+
+        mapInstance.once('moveend', () => {
+            const marker = list_locations.markers[target.id];
+            if (marker && !marker.getPopup().isOpen()) {
+                marker.togglePopup();
+            }
+        });
         
-        // Optional: Open the popup automatically
-        // This is advanced, but for now, flyTo is the priority.
+        
     } else {
         console.warn("Location not found for query:", query);
     }

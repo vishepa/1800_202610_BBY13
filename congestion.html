@@ -45,8 +45,8 @@
             <div class="tile-row card-bg d-flex flex-column gap-3 p-3 rounded">
 
                 <!-- Image Column -->
-                <div class="d-flex flex-row gap-3 align-items-center">
-                    <div id="img-wrapper" class="cafe-img-wrapper rounded-start w-25">
+                <div class="d-flex flex-column flex-sm-row gap-3 align-items-center">
+                    <div id="img-wrapper" class="cafe-img-wrapper rounded">
                         <!-- Image will be inserted here -->
                     </div>
     
@@ -61,7 +61,7 @@
     
                             <p class="mb-1">
                                 <strong>Crowd Level:</strong>
-                                <b><span id="card-current-congestion">Busy</span></b>
+                                <b><span id="card-current-congestion" class="badge rounded-pill" style="font-size: large;">Busy</span></b>
                             </p>
     
                             <p class="mb-0">
@@ -81,19 +81,20 @@
                         <h5 id="collapse-card-congestion"> Crowd Level: Busy</h5>
                         <h5 id="collapse-card-wait-time"> Expected Wait Time: 10–15 mins</h5>
     
-                        <button type="button" class="btn confirm btn-primary w-25 gap-1 m-2">Confirm Wait Time</button>
+                        <button type="button" class="btn confirm btn-primary gap-1 m-2">Confirm Wait Time</button>
 
                         <h4 class="confirm-msg"> Thanks for Confirming! </h4>
     
-                        <button type="button" class="btn update btn-primary w-25 gap-1 m-2">Update Wait Time</button>
-                        <div class="collapse update-collapse w-50 gap-1 align-items-center">
+                        <button type="button" class="btn update btn-primary gap-1 m-2">Update Wait Time</button>
+                        <div class="collapse update-collapse gap-1 align-items-center">
                             <div class="card card-body w-100">
                                 <div class="button-container">
-                                    <button id="five-min-btn" type="button" class="btn btn-secondary w-25 gap-1 m-2">5 mins</button>
-                                    <button id="ten-min-btn" type="button" class="btn btn-secondary w-25 gap-1 m-2">10 mins</button>
-                                    <button id="fifteen-min-btn" type="button" class="btn btn-secondary w-25 gap-1 m-2">15 mins</button>
+                                    <button id="five-min-btn" type="button" class="btn btn-secondary gap-1 m-2">5 mins</button>
+                                    <button id="ten-min-btn" type="button" class="btn btn-secondary gap-1 m-2">10 mins</button>
+                                    <button id="fifteen-min-btn" type="button" class="btn btn-secondary gap-1 m-2">15 mins</button>
 
                                 </div>
+                                <h4 class="update-msg"> Thanks for Updating! </h4>
                             </div>
                         </div>
                     </div>

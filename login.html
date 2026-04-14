@@ -30,86 +30,95 @@
 
     <!-- Main content goes here -->
 
-    <div class="container py-5" style="max-width: 420px;height: 90vh;">
+    <div class="container py-5" style="max-width: 420px; min-height: 90vh;">
       <!-- Alerts -->
       <div id="authAlert" class="alert alert-danger d-none" role="alert"></div>
 
       <!-- Login -->
-      <div id="loginView">
-        <h3 class="mb-3 text-center">Login</h3>
-        <form id="loginForm" novalidate autocomplete="off">
-          <div class="mb-3">
-            <input
-              type="email"
-              id="loginEmail"
-              class="form-control"
-              placeholder="Email"
-              required
-              autocomplete="off"
-            />
+      
+        <div id="loginView" class="d-flex flex-column gap-4">
+          <div class="card shadow-sm justify-content-center p-4">
+
+          <h3 class="mb-3 text-center">Login</h3>
+          <form id="loginForm" novalidate autocomplete="off">
+            <div class="mb-3">
+              <input
+                type="email"
+                id="loginEmail"
+                class="form-control"
+                placeholder="Email"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                id="loginPassword"
+                class="form-control"
+                placeholder="Password"
+                required
+                autocomplete="new-password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+          <small class="d-block mt-3 text-center">
+            Don’t have an account?
+            <a href="#" id="toSignup">Sign up </a>
+          </small>
           </div>
-          <div class="mb-3">
-            <input
-              type="password"
-              id="loginPassword"
-              class="form-control"
-              placeholder="Password"
-              required
-              autocomplete="new-password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
-        <small class="d-block mt-3 text-center">
-          Don’t have an account?
-          <a href="#" id="toSignup">Sign up </a>
-        </small>
-      </div>
+        </div>
+
 
       <!-- Signup -->
-      <div id="signupView" class="d-none">
-        <h3 class="mb-3 text-center">Sign Up</h3>
-        <form id="signupForm" novalidate autocomplete="off">
-          <div class="mb-3">
-            <input
-              type="text"
-              id="signupName"
-              class="form-control"
-              placeholder="First and Last Name"
-              aria-label="Full name"
-              required
-              autocomplete="off"
-            />
+      
+        <div id="signupView" class="d-none">
+          <div class="card shadow-sm p-4">
+            <h3 class="mb-3 text-center">Sign Up</h3>
+            <form id="signupForm" novalidate autocomplete="off">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  id="signupName"
+                  class="form-control"
+                  placeholder="First and Last Name"
+                  aria-label="Full name"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  id="signupEmail"
+                  class="form-control"
+                  placeholder="Email"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="password"
+                  id="signupPassword"
+                  class="form-control"
+                  placeholder="Password"
+                  required
+                  autocomplete="new-password"
+                />
+              </div>
+              <button type="submit" class="btn btn-success w-100">
+                Create Account
+              </button>
+            </form>
+            <small class="d-block mt-3 text-center">
+              Already have an account?
+              <a href="#" id="toLogin">Login</a>
+            </small>
           </div>
-          <div class="mb-3">
-            <input
-              type="email"
-              id="signupEmail"
-              class="form-control"
-              placeholder="Email"
-              required
-              autocomplete="off"
-            />
-          </div>
-          <div class="mb-3">
-            <input
-              type="password"
-              id="signupPassword"
-              class="form-control"
-              placeholder="Password"
-              required
-              autocomplete="new-password"
-            />
-          </div>
-          <button type="submit" class="btn btn-success w-100">
-            Create Account
-          </button>
-        </form>
-        <small class="d-block mt-3 text-center">
-          Already have an account?
-          <a href="#" id="toLogin">Login</a>
-        </small>
-      </div>
+        </div>
+
     </div>
 
     <!-- our own footer goes here -->

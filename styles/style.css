@@ -13,6 +13,9 @@
   --bs-btn-hover-border-color: #040b54;
   --bs-btn-active-bg: #040b54;
   --bs-btn-active-border-color: #040b54;
+
+  /* width: 25%;
+  height:auto; */
 }
 
 .explore-btn {
@@ -21,10 +24,6 @@
 
 body {
   background-color: #c4e6ea;
-}
-
-body {
-  background-color: #ffffff;
 }
 
 .card-img-top {
@@ -88,14 +87,16 @@ footer {
 }
 
 .cafe-img-wrapper {
-  height: 150px;
   overflow: hidden;
+  aspect-ratio: 16/9;
+  width: 100%;
 }
 
 .cafe-img-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .card-spacing {
@@ -113,10 +114,20 @@ footer {
 /* scrollable main part */
 .congestion-scroll {
   height: 80vh;
+  width: 100%;
   overflow: scroll;
 }
 
 .confirm-msg {
+  display: none;
+  visibility: hidden;
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: visibility 0.5s ease;
+}
+
+.update-message {
   visibility: hidden;
   color: green;
   font-weight: bold;
@@ -130,10 +141,6 @@ footer {
 
 .heading-spacing {
   padding-top: 2rem;
-}
-
-.card-bg {
-  background-color: #fefefe;
 }
 
 .body-bg {
@@ -150,6 +157,7 @@ footer {
 
 .tile-row {
   transition: transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 }
 
 /* .location-tiles:hover {
@@ -157,7 +165,9 @@ footer {
 } */
 
 .tile-row:hover {
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 /* Nav-bar css */
@@ -176,7 +186,7 @@ footer {
 }
 
 .toggle-color {
-  background-color: #fefefe !important;
+  background-color: #e1e2f2 !important;
 }
 
 .nav-bg {
@@ -200,10 +210,6 @@ footer {
 
 .map-body {
   height: 100vh;
-}
-
-footer {
-  background-color: #c4e6ea;
 }
 
 /* Recents Toggle Styling */
@@ -266,3 +272,27 @@ footer {
   background-color: #e6b952 !important;
   color: #ffffff !important;
 }
+
+
+#tile-template {
+  width: 100%;
+}
+
+/*
+@media (max-width: 425px) {
+  .tile-row {
+    width: 100%;
+    height: auto;
+  } 
+
+  .cafe-img-wrapper {
+
+    width: auto;
+    height: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    height: auto;
+  }
+}*/
