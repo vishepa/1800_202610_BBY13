@@ -119,7 +119,6 @@ footer {
 }
 
 .confirm-msg {
-  display: none;
   visibility: hidden;
   color: green;
   font-weight: bold;
@@ -127,7 +126,7 @@ footer {
   transition: visibility 0.5s ease;
 }
 
-.update-message {
+.update-msg {
   visibility: hidden;
   color: green;
   font-weight: bold;
