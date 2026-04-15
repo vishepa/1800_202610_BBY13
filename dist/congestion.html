@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheShortCut</title>
+ 
+    <!-- Load Vite entry file -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Web Components -->
+  <script type="module" crossorigin src="/assets/congestion-VstWEp7H.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-DrQEZItZ.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-BnmAVRKN.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100 congestion-bg">
+
+    <!-- Reusable Navbar -->
+    <site-navbar></site-navbar>
+
+    <!-- Page Content -->
+    <main class="flex-fill container my-4 congestion-scroll">
+        <div class="d-flex justify-content-between align-items-center mb-3 gap-3">
+            
+        </div>
+        <div class="text-center mb-4 heading-spacing">
+            <h4 class="fw-bold">Here are some locations near you!</h4>
+            <p class="text-muted">View the latest updates on wait times</p>
+        </div>
+        <div class="recents-toggle-wrapper">
+            <div class="form-check form-switch"> 
+                <input class="form-check-input" type="checkbox" id="recents-toggle" role="switch">
+                <label class="form-check-label" for="recents-toggle">
+                    Recents
+                </label>
+            </div>
+        </div>
+        <div id="locations-go-here" class="location-tiles w-100 d-flex flex-column gap-3 p-3 rounded" >
+            
+        </div>
+        <template id="tile-template">
+            <div class="tile-row card-bg d-flex flex-column gap-3 p-3 rounded">
+
+                <!-- Image Column -->
+                <div class="d-flex flex-column flex-sm-row gap-3 align-items-center">
+                    <div id="img-wrapper" class="cafe-img-wrapper rounded">
+                        <!-- Image will be inserted here -->
+                    </div>
+    
+                    <!-- Text Column -->
+                    <div class="col-8">
+                        <div class="card-body card-spacing">
+                            <h5 id="card-title" class="card-title title-spacing">Triple O's</h5>
+    
+                            <p class="mb-1">
+                                <strong>Distance:</strong><span id="card-distance"> Enable location to view distance</span>
+                            </p>
+    
+                            <p class="mb-1">
+                                <strong>Crowd Level:</strong>
+                                <b><span id="card-current-congestion" class="badge rounded-pill" style="font-size: large;">Busy</span></b>
+                            </p>
+    
+                            <p class="mb-0">
+                                <strong>Expected Wait Time: </strong><span id="card-expected-wait-time"> 10–15 mins</span> 
+                            </p>
+                            <p class="mb-0">
+                                <em id="card-last-updated" class="text-muted">Last updated: 5 mins ago</em>
+                            </p>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="collapse location-collapse w-100 gap-1 align-items-center">
+                    <div class="card card-body w-100">
+                        <h4 id="collapse-card-title">Triple O's</h4>
+                        <h5 id="collapse-card-distance"> 150m away</h5>
+                        <h5 id="collapse-card-congestion"> Crowd Level: Busy</h5>
+                        <h5 id="collapse-card-wait-time"> Expected Wait Time: 10–15 mins</h5>
+    
+                        <button type="button" class="btn confirm btn-primary gap-1 m-2">Confirm Wait Time</button>
+
+                        <h4 class="confirm-msg"> Thanks for Confirming! </h4>
+    
+                        <button type="button" class="btn update btn-primary gap-1 m-2">Update Wait Time</button>
+                        <div class="collapse update-collapse gap-1 align-items-center">
+                            <div class="card card-body w-100">
+                                <div class="button-container">
+                                    <button id="five-min-btn" type="button" class="btn btn-secondary gap-1 m-2">5 mins</button>
+                                    <button id="ten-min-btn" type="button" class="btn btn-secondary gap-1 m-2">10 mins</button>
+                                    <button id="fifteen-min-btn" type="button" class="btn btn-secondary gap-1 m-2">15 mins</button>
+
+                                </div>
+                                <h4 class="update-msg"> Thanks for Updating! </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </template>
+            
+        
+    </main>
+
+    <!-- Reusable Footer -->
+    <site-footer></site-footer>
+
+</body>
+
+</html>

@@ -148,7 +148,7 @@ function showMap() {
               <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="10 mins">10 mins</button>
               <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="15 mins">15 mins</button>
             </div>
-            <div class="update-message mt-1" style="display:none">
+            <div class="update-message mt-1">
               <p class="update-msg mb-0">Wait time updated!</p>
             </div>
           `;
@@ -178,7 +178,7 @@ function showMap() {
           btn.addEventListener('click', () => {
 
             const newCongestion = congestionMap[btn.dataset.time];
-            const updateMsg = popupEl.querySelector('.update-message');
+            const updateMsg = popupEl.querySelector('.update-msg');
 
             updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time, currentCongestion: newCongestion, lastUpdated: serverTimestamp() });
             popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;

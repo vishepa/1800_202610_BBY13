@@ -265,6 +265,7 @@ async function displayCardsDynamically() {
                 e.stopPropagation();
                 const confirmMsg = thisRow.querySelector('.confirm-msg');
                 if (confirmMsg) {
+                    confirmMsg.style.display = 'block';
                     confirmMsg.style.visibility = 'visible';
                     updateDoc(locationDocRef, {
                         lastUpdated: serverTimestamp()
@@ -280,6 +281,7 @@ async function displayCardsDynamically() {
                 e.stopPropagation();
                 updateDoc(locationDocRef, { estimatedWaitTime: '5 mins', currentCongestion: 'none', lastUpdated: serverTimestamp() });
                 updateCardDisplay(thisRow, '5 mins', 'none');
+                updateMsg.style.display = 'block';
                 updateMsg.style.visibility = 'visible';
             });
 
@@ -287,6 +289,7 @@ async function displayCardsDynamically() {
                 e.stopPropagation();
                 updateDoc(locationDocRef, { estimatedWaitTime: '10 mins', currentCongestion: 'normal', lastUpdated: serverTimestamp() });
                 updateCardDisplay(thisRow, '10 mins', 'normal');
+                updateMsg.style.display = 'block';
                 updateMsg.style.visibility = 'visible';
 
             });
@@ -295,6 +298,7 @@ async function displayCardsDynamically() {
                 e.stopPropagation();
                 updateDoc(locationDocRef, { estimatedWaitTime: '15 mins', currentCongestion: 'busy', lastUpdated: serverTimestamp() });
                 updateCardDisplay(thisRow, '15 mins', 'busy');
+                updateMsg.style.display = 'block';
                 updateMsg.style.visibility = 'visible';
 
             });

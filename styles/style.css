@@ -22,6 +22,11 @@
   margin-bottom: -2rem;
 }
 
+html {
+  overflow: none;
+  
+}
+
 body {
   background-color: #e1e2f2;
 }
@@ -127,7 +132,8 @@ footer {
   transition: visibility 0.5s ease;
 }
 
-.update-message {
+.update-msg {
+  display: none;
   visibility: hidden;
   color: green;
   font-weight: bold;
