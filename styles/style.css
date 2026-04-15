@@ -119,6 +119,7 @@ footer {
 }
 
 .confirm-msg {
+  display: none;
   visibility: hidden;
   color: green;
   font-weight: bold;
