@@ -133,25 +133,29 @@ function showMap() {
 
         // Build the popup DOM element
         const popupEl = document.createElement('div');
-        popupEl.style.minWidth = '220px';
-        popupEl.innerHTML = `
-            <h5>${name}</h5>
-            <p class="mb-1"><strong>Crowd Level:</strong> ${currentCongestion}</p>
-            <p class="mb-2"><strong>Wait:</strong> ${estimatedWaitTime}</p>
-            <button class="btn btn-primary btn-sm w-100 mb-1 confirm-btn">Confirm Wait Time</button>
-            <div class="confirm-msg mb-0">
-              <p>Thanks for confirming!</p>
+                popupEl.innerHTML = `
+          <div class="popup-header" style="background-color: ${getCongestionColor(currentCongestion)};">
+            <h3 class="popup-title">${name}</h3>
+          </div>
+          <div class="popup-body">
+            <div class="popup-info-row">
+              <span class="popup-congestion-badge ${getCongestionClass(currentCongestion)}">
+                ${getCongestionLabel(currentCongestion)}
+              </span>
+              <p class="popup-info-value popup-wait-value">${estimatedWaitTime}</p>
             </div>
-            <button class="btn btn-outline-secondary btn-sm w-100 update-btn">Update Wait Time</button>
-            <div class="update-options mt-1" style="display:none;">
-              <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="5 mins">5 mins</button>
-              <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="10 mins">10 mins</button>
-              <button class="btn btn-secondary btn-sm m-1 time-btn" data-time="15 mins">15 mins</button>
+            <p class="popup-info-label">Estimated wait time</p>
+            <button class="popup-btn popup-btn-primary confirm-btn">Confirm Wait Time</button>
+            <div class="popup-success-msg confirm-msg">Thanks for confirming!</div>
+            <button class="popup-btn popup-btn-secondary update-btn">Update Wait Time</button>
+            <div class="popup-time-options update-options" style="display:none;">
+              <button class="popup-time-btn time-btn" data-time="5 mins">5 min</button>
+              <button class="popup-time-btn time-btn" data-time="10 mins">10 min</button>
+              <button class="popup-time-btn time-btn" data-time="15 mins">15 min</button>
             </div>
-            <div class="update-message mt-1">
-              <p class="update-msg mb-0">Wait time updated!</p>
-            </div>
-          `;
+            <div class="popup-success-msg update-message" style="display:none;">Wait time updated!</div>
+          </div>
+        `;
 
         // Attach the same logic as main.js
         const locationDocRef = doc(db, 'locations', docSnap.id);
@@ -159,8 +163,7 @@ function showMap() {
         popupEl.querySelector('.confirm-btn').addEventListener('click', () => {
           const confirmMsg = popupEl.querySelector('.confirm-msg');
           updateDoc(locationDocRef, { lastUpdated: serverTimestamp() });
-          confirmMsg.style.display = 'block';
-          confirmMsg.style.visibility = 'visible';
+          confirmMsg.classList.add('visible');
         });
 
         popupEl.querySelector('.update-btn').addEventListener('click', () => {
@@ -178,13 +181,21 @@ function showMap() {
           btn.addEventListener('click', () => {
 
             const newCongestion = congestionMap[btn.dataset.time];
-            const updateMsg = popupEl.querySelector('.update-msg');
-
+            const updateMsg = popupEl.querySelector('.update-message');
+ 
             updateDoc(locationDocRef, { estimatedWaitTime: btn.dataset.time, currentCongestion: newCongestion, lastUpdated: serverTimestamp() });
-            popupEl.querySelector('.mb-2').innerHTML = `<strong>Wait:</strong> ${btn.dataset.time}`;
-            popupEl.querySelector('.mb-1').innerHTML = `<strong>Crowd Level:</strong> ${newCongestion}`;
-            updateMsg.style.display = 'block';
-            updateMsg.style.visibility = 'visible';
+ 
+            popupEl.querySelector('.popup-wait-value').textContent = btn.dataset.time;
+ 
+            const badge = popupEl.querySelector('.popup-congestion-badge');
+            badge.textContent = getCongestionLabel(newCongestion);
+            badge.className = `popup-congestion-badge ${getCongestionClass(newCongestion)}`;
+ 
+            popupEl.querySelector('.popup-header').style.backgroundColor = getCongestionColor(newCongestion);
+ 
+            updateMsg.style.display = '';
+            updateMsg.classList.add('visible');
+
             const element = marker.getElement();
             const svg = element.querySelector('svg');
             svg.querySelector('path').setAttribute('fill', getCongestionColor(newCongestion));
@@ -255,6 +266,20 @@ function getCongestionColor(congestion) {
   if (congestion === 'normal') return '#eab308';  // yellow
   if (congestion === 'busy') return '#ef4444';    // red
   return '#6b7280'; // grey fallback for unknown values
+}
+
+function getCongestionLabel(congestion) {
+  if (congestion === 'none') return 'Not Busy';
+  if (congestion === 'normal') return 'Moderate';
+  if (congestion === 'busy') return 'Busy';
+  return 'Unknown';
+}
+ 
+function getCongestionClass(congestion) {
+  if (congestion === 'none') return 'level-none';
+  if (congestion === 'normal') return 'level-normal';
+  if (congestion === 'busy') return 'level-busy';
+  return 'level-unknown';
 }
 
 
