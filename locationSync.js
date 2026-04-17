@@ -54,7 +54,6 @@ async function syncLocations() {
                 createdAt: new Date()
             });
 
-            console.log(`Added new location: ${id}`);
             added++;
         }
 
@@ -73,10 +72,8 @@ async function syncLocations() {
                     createdAt: createdAt,
                     updatedAt: new Date()
                 });
-                console.log(`Updated existing location: ${id}`);
                 updated++;
             } else {
-                console.log(`No changes for location: ${id}, skipping update.`);
                 skipped++;
             }
         }

@@ -1,14 +1,10 @@
-//import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-import { auth, onAuthStateChanged } from "../firebaseConfig.js";
-// import { logoutUser } from '/src/authentication.js';
+import { auth, onAuthStateChanged } from "../js/firebaseConfig.js";
 
 class SiteFooter extends HTMLElement {
   constructor() {
     super();
     this.renderFooter();
-    // this.renderAuthControls();
-    this.setupAccountButton(); //dont forget to call the method here!
+    this.setupAccountButton();
   }
 
   renderFooter() {
@@ -42,11 +38,7 @@ class SiteFooter extends HTMLElement {
   // clicking the account page button brings the user to the login page if the user is not logged in
   setupAccountButton() {
     const accountBtn = document.getElementById("accountBtn");
-    /*const accountBtn = this.querySelector("#accountBtn"); 
-    use this.querySelector() instead if footer is a custom element 
-     whose HTML is not part of the global document until after the component renders.
-     This guarantees the element is found because it searches inside the footer, not the whole page.
-*/
+
     let currentUser = null;
 
     onAuthStateChanged(auth, (user) => {
@@ -62,59 +54,7 @@ class SiteFooter extends HTMLElement {
     });
   }
 
-  // setupAccountButton() {
-  //   const accountBtn = this.querySelector("#accountBtn");
 
-  //   accountBtn.addEventListener("click", () => {
-  //     onAuthStateChanged(auth, (user) => {
-  //       if (user) {
-  //         window.location.href = "../../account.html";
-  //       } else {
-  //         window.location.href = "../../login.html";
-  //       }
-  //     });
-  //   });
-  // }
-  //   addAccountClickHandler() {
-  //     const accountBtn = this.querySelector("#accountBtn");
-
-  //     accountBtn.addEventListener("click", () => {
-  //       const isLoggedIn = localStorage.getItem("userToken"); // or your real check
-
-  //       if (!isLoggedIn) {
-  //         window.location.href = "./login.html";
-  //         return;
-  //       }
-
-  //       window.location.href = "./account.html";
-  //     });
-  //   }
-
-  //   //deleted the a tag of the footer, comes right after <footer class"d-flex....> it was messing with the user click
-  //   <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-  //                     <svg class="bi me-2" width="40" height="32">
-  //                         <use xlink:href="#bootstrap" />
-  //                     </svg>
-  //                 </a>
-
-  // renderAuthControls(){
-  //     const authControls = this.querySelector('#authControls');
-
-  //     authControls.innerHTML = `<div class="btn btn-outline-light" style="visibility: hidden; min-width: 80px;">Log out</div>`;
-
-  //     onAuthStateChanged(auth, (user) => {
-  //         let updatedAuthControl;
-  //         if (user) {
-  //             updatedAuthControl = `<button class="btn btn-outline-light" id="signOutBtn" type="button" style="min-width: 80px;">Log out</button>`;
-  //             authControls.innerHTML = updatedAuthControl;
-  //             const signOutBtn = authControls.querySelector('#signOutBtn');
-  //             signOutBtn?.addEventListener('click', logoutUser);
-  //         } else {
-  //             updatedAuthControl = `<a class="btn btn-outline-light" id="loginBtn" href="/login.html" style="min-width: 80px;">Log in</a>`;
-  //             authControls.innerHTML = updatedAuthControl;
-  //         }
-  //     });
-  // }
 }
 
 customElements.define("site-footer", SiteFooter);

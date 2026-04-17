@@ -1,7 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "/src/firebaseConfig.js";
-import { logoutUser } from "/src/authentication.js";
-// import "../../styles/style.css";
+import { auth } from "/src/js/firebaseConfig.js";
+import { logoutUser } from "/src/js/authentication.js";
 
 class SiteNavbar extends HTMLElement {
   constructor() {
@@ -77,7 +76,6 @@ class SiteNavbar extends HTMLElement {
     const greetingDiv = this.querySelector("#greeting");
 
     onAuthStateChanged(auth, (user) => {
-      console.log("User object:", user);
       if (user) {
         const name = user.displayName || user.email.split("@")[0];
         greetingDiv.textContent = `Hello, ${name}`;
@@ -101,7 +99,6 @@ class SiteNavbar extends HTMLElement {
         if (!query) return;
 
         if (window.location.pathname.includes("map.html")) {
-          console.log("Searching via Enter/Click without reload...");
 
           const searchEvent = new CustomEvent("navbarSearch", {
             detail: { query: query },
@@ -117,9 +114,3 @@ class SiteNavbar extends HTMLElement {
 
 customElements.define("site-navbar", SiteNavbar);
 
-//pre navbar modification
-// <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-//     <li class="nav-item">
-//     <p>&#9786;</p>
-//     </li>
-// </ul>
